@@ -175,6 +175,10 @@ function buildRoutine(a: QuizAnswers, bundleId: BundleId) {
     ];
     pm = [
       {
+        productId: "strips",
+        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
+      },
+      {
         productId: "night-cream",
         reason: "Works overnight to renew and restore while you sleep.",
       },
@@ -203,6 +207,10 @@ function buildRoutine(a: QuizAnswers, bundleId: BundleId) {
         reason: "Lifts the day away without leaving skin squeaky or uncomfortable.",
       },
       {
+        productId: "strips",
+        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
+      },
+      {
         productId: "night-cream",
         reason: "Overnight renewal to wake up looking rested and even.",
       },
@@ -221,6 +229,10 @@ function buildRoutine(a: QuizAnswers, bundleId: BundleId) {
       },
     ];
     pm = [
+      {
+        productId: "strips",
+        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
+      },
       {
         productId: "heritage-balm",
         reason: "Applied first to deliver deep nourishment before the night cream seals it in.",
@@ -246,6 +258,10 @@ function buildRoutine(a: QuizAnswers, bundleId: BundleId) {
       },
     ];
     pm = [
+      {
+        productId: "strips",
+        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
+      },
       {
         productId: "whipped-tallow",
         reason: "A light evening layer to soften and prep skin before the night cream.",
