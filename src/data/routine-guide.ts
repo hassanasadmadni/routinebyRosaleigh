@@ -37,4 +37,9 @@ export const PRODUCT_GUIDE: Record<ProductId, ProductGuide> = {
     how: "Massage into legs, heels and feet after showering while skin is still slightly damp.",
     caution: "Avoid on cracked, bleeding or infected skin.",
   },
+  strips: {
+    quantity: "1 strip",
+    how: "Place one strip under the tongue before bed and allow it to dissolve completely — takes around 30 seconds. Do not eat or drink for 5 minutes after.",
+    caution: "For adults only. Do not exceed one strip per day. Consult your doctor if pregnant, breastfeeding, or on medication.",
+  },
 };
