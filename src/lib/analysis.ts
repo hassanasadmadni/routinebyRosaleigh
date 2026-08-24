@@ -136,151 +136,42 @@ const CONCERN_LABEL: Record<string, string> = {
   firmness: "a softening of firmness",
 };
 
-function pickBundle(a: QuizAnswers): BundleId {
-  // Dry / sensitive / dryness concern → Heritage Tallow Balm (deep nourishment)
-  if (a.skinType === "dry" || a.skinType === "sensitive" || a.concern === "dryness") {
-    return "tallow-age-defence";
-  }
-
-  // Fine lines / firmness concern → Whipped Tallow (lightweight anti-ageing)
-  if (a.concern === "lines" || a.concern === "firmness") {
-    return "whipped-age-defence";
-  }
-
-  // Oily / combination / texture / dullness → Cleanse & Renew (lotion-led)
-  if (
-    a.skinType === "oily" ||
-    a.skinType === "combination" ||
-    a.concern === "texture" ||
-    a.concern === "dullness"
-  ) {
-    return "cleanse-renew";
-  }
-
-  // Balanced skin or body-focused needs → Foot & Leg Ritual
-  return "foot-leg-ritual";
+function pickBundle(_a: QuizAnswers): BundleId {
+  return "complete-routine";
 }
 
-function buildRoutine(a: QuizAnswers, bundleId: BundleId) {
-  const dryish = a.skinType === "dry" || a.skinType === "sensitive" || a.hydration === "tight";
-  let am: RoutineStep[] = [];
-  let pm: RoutineStep[] = [];
+function buildRoutine(a: QuizAnswers, _bundleId: BundleId) {
+  const am: RoutineStep[] = [
+    {
+      productId: "strips",
+      reason:
+        "Take one strip 30 minutes after breakfast — place under the tongue and let it dissolve in 30 seconds. Vitamin C is absorbed directly into the bloodstream, supporting collagen production and skin renewal throughout the day.",
+    },
+    {
+      productId: "day-cream",
+      reason:
+        a.spf === "daily"
+          ? "Your SPF habit is already your biggest defence — this keeps it going with anti-ageing support built in. Always the final morning step."
+          : "SPF50 is the single most effective thing you can do for your skin. Smooth over face and neck as the last step every morning.",
+    },
+  ];
 
-  if (bundleId === "foot-leg-ritual") {
-    am = [
-      {
-        productId: "day-cream",
-        reason: "Starts your day with SPF50 protection and anti-ageing support in one step.",
-      },
-    ];
-    pm = [
-      {
-        productId: "strips",
-        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
-      },
-      {
-        productId: "night-cream",
-        reason: "Works overnight to renew and restore while you sleep.",
-      },
-      {
-        productId: "foot-leg",
-        reason: "Apply generously to legs, heels and feet as the last step each evening.",
-      },
-    ];
-  } else if (bundleId === "cleanse-renew") {
-    am = [
-      {
-        productId: "cleanser",
-        reason: "A gentle, non-stripping start that respects your skin barrier each morning.",
-      },
-      {
-        productId: "day-cream",
-        reason:
-          a.spf === "daily"
-            ? "Keeps your excellent SPF habit going, with anti-ageing support built in."
-            : "Daily SPF50 is the single biggest change you can make — this makes it effortless.",
-      },
-    ];
-    pm = [
-      {
-        productId: "cleanser",
-        reason: "Lifts the day away without leaving skin squeaky or uncomfortable.",
-      },
-      {
-        productId: "strips",
-        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
-      },
-      {
-        productId: "night-cream",
-        reason: "Overnight renewal to wake up looking rested and even.",
-      },
-    ];
-  } else if (bundleId === "tallow-age-defence") {
-    am = [
-      {
-        productId: "heritage-balm",
-        reason: dryish
-          ? "Rich tallow nourishment to ease morning tightness and comfort reactive skin."
-          : "A small dab on drier areas keeps skin comfortable through the day.",
-      },
-      {
-        productId: "day-cream",
-        reason: "Layered over balm for SPF50 protection and anti-ageing defence all day.",
-      },
-    ];
-    pm = [
-      {
-        productId: "strips",
-        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
-      },
-      {
-        productId: "heritage-balm",
-        reason: "Applied first to deliver deep nourishment before the night cream seals it in.",
-      },
-      {
-        productId: "night-cream",
-        reason:
-          a.concern === "lines" || a.concern === "firmness"
-            ? "Works overnight on the lines and slackening you told us about."
-            : "Overnight renewal to wake up looking rested and even.",
-      },
-    ];
-  } else {
-    // whipped-age-defence
-    am = [
-      {
-        productId: "whipped-tallow",
-        reason: "Lightweight whipped texture absorbs quickly — perfect under SPF.",
-      },
-      {
-        productId: "day-cream",
-        reason: "SPF50 anti-ageing protection layered over Whipped Tallow for all-day defence.",
-      },
-    ];
-    pm = [
-      {
-        productId: "strips",
-        reason: "Take one strip before bed — dissolves under the tongue in seconds, delivering Vitamin C directly into the bloodstream to support overnight skin renewal.",
-      },
-      {
-        productId: "whipped-tallow",
-        reason: "A light evening layer to soften and prep skin before the night cream.",
-      },
-      {
-        productId: "night-cream",
-        reason:
-          a.concern === "lines" || a.concern === "firmness"
-            ? "Works overnight on the lines and slackening you told us about."
-            : "Overnight renewal so you wake up with visibly smoother skin.",
-      },
-    ];
-  }
+  const pm: RoutineStep[] = [
+    {
+      productId: "cleanser",
+      reason:
+        "First step every evening — gently lifts SPF, makeup and daily buildup so your skin is truly clean before your night treatment.",
+    },
+    {
+      productId: "night-cream",
+      reason:
+        a.concern === "lines" || a.concern === "firmness"
+          ? "Press upwards over cleansed skin before bed — works overnight on fine lines and loss of firmness while you sleep."
+          : "Press upwards over cleansed skin for overnight renewal — you'll wake up to softer, more even-looking skin.",
+    },
+  ];
 
-  const allowed = new Set<ProductId>(BUNDLES[bundleId].items);
-  return {
-    am: am.filter((s) => allowed.has(s.productId)),
-    pm: pm.filter((s) => allowed.has(s.productId)),
-  };
+  return { am, pm };
 }
 
 function buildSummary(a: QuizAnswers): string[] {
