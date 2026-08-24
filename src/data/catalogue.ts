@@ -44,7 +44,7 @@ export const PRODUCTS: Record<ProductId, Product> = {
   },
   strips: {
     id: "strips",
-    name: "Anti-Wrinkle Vitamin C Sublingual Strips",
+    name: "Anti-Wrinkle Sublingual Strips",
     shortName: "Sublingual Strips",
     image: stripsImg,
     url: "https://www.rosaleigh.co.uk",
