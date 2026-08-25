@@ -145,7 +145,7 @@ function buildRoutine(a: QuizAnswers, _bundleId: BundleId) {
     {
       productId: "strips",
       reason:
-        "Take one strip 30 minutes after breakfast — place under the tongue and let it dissolve in 30 seconds. Vitamin C is absorbed directly into the bloodstream, supporting collagen production and skin renewal throughout the day.",
+        "Take one strip 30 minutes after breakfast — place under the tongue and let it dissolve in 30 seconds. Active ingredients are absorbed directly into the bloodstream, supporting collagen production and skin renewal throughout the day.",
     },
     {
       productId: "day-cream",
