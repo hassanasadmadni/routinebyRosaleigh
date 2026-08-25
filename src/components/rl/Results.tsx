@@ -127,6 +127,7 @@ export function Results({ result, returning, onRestart }: Props) {
       <ScienceSection />
 
       <h2 className="mt-14 text-3xl">Recommended Package</h2>
+      <article className="rl-card mt-6 overflow-hidden">
         <div className="border-b border-border bg-surface px-6 py-5">
           <p className="text-xs uppercase tracking-[0.2em] text-highlight">Chosen for you</p>
           <h3 className="mt-1.5 text-2xl">{bundle.name}</h3>
