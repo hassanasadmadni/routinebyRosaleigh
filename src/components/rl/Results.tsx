@@ -10,6 +10,7 @@ import {
   Download,
   Sun,
   Moon,
+  Sparkles,
 } from "lucide-react";
 import { BUNDLES, PRODUCTS } from "@/data/catalogue";
 import { metricsFor, type SkinResult } from "@/lib/analysis";
@@ -223,40 +224,62 @@ function PhaseCard({
 }
 
 function StepRow({ step }: { step: PlanStep }) {
+  const isStrips = step.productId === "strips";
   return (
-    <li className="flex gap-4 border-b border-border pb-5 last:border-0 last:pb-0">
-      <img
-        src={step.image}
-        alt={step.productName}
-        loading="lazy"
-        width={768}
-        height={768}
-        className="h-16 w-16 shrink-0 rounded-xl bg-surface object-contain p-1"
-      />
-      <div className="min-w-0">
-        <p className="text-sm font-medium text-heading">{step.productName}</p>
-        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{step.reason}</p>
-        <dl className="mt-3 space-y-1.5">
-          <Line
-            icon={step.when === "AM" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-            label="When"
-            value={step.when}
-          />
-          <Line icon={<Droplet className="h-3.5 w-3.5" />} label="Quantity" value={step.quantity} />
-          <Line icon={<Hand className="h-3.5 w-3.5" />} label="How to apply" value={step.how} />
-          <Line
-            icon={<CalendarDays className="h-3.5 w-3.5" />}
-            label="Frequency"
-            value={step.frequency}
-          />
-          <Line
-            icon={<AlertTriangle className="h-3.5 w-3.5 text-error" />}
-            label="When not to use"
-            value={step.caution}
-          />
-        </dl>
-      </div>
-    </li>
+    <>
+      <li className="flex gap-4 border-b border-border pb-5 last:border-0 last:pb-0">
+        <img
+          src={step.image}
+          alt={step.productName}
+          loading="lazy"
+          width={768}
+          height={768}
+          className="h-16 w-16 shrink-0 rounded-xl bg-surface object-contain p-1"
+        />
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-heading">{step.productName}</p>
+          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{step.reason}</p>
+          <dl className="mt-3 space-y-1.5">
+            <Line
+              icon={step.when === "AM" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              label="When"
+              value={step.when}
+            />
+            <Line icon={<Droplet className="h-3.5 w-3.5" />} label="Quantity" value={step.quantity} />
+            <Line icon={<Hand className="h-3.5 w-3.5" />} label="How to apply" value={step.how} />
+            <Line
+              icon={<CalendarDays className="h-3.5 w-3.5" />}
+              label="Frequency"
+              value={step.frequency}
+            />
+            <Line
+              icon={<AlertTriangle className="h-3.5 w-3.5 text-error" />}
+              label="When not to use"
+              value={step.caution}
+            />
+            <Line
+              icon={<Sparkles className="h-3.5 w-3.5 text-highlight" />}
+              label="Key benefits"
+              value={step.benefits}
+            />
+          </dl>
+        </div>
+      </li>
+      {isStrips && (
+        <li className="rounded-xl border border-border bg-surface px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+          <p className="mb-1 font-semibold text-heading">Dietary Supplement Disclaimer</p>
+          <p>
+            Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not
+            intended to diagnose, treat, cure, or prevent any disease or medical condition. This
+            product is not a substitute for a varied and balanced diet or a healthy lifestyle.
+            Results may vary between individuals. Do not exceed the recommended daily intake. Keep
+            out of reach of children. Store in a cool, dry place away from direct sunlight. If you
+            are pregnant, breastfeeding, taking medication, or have an underlying health condition,
+            consult your doctor or pharmacist before use.
+          </p>
+        </li>
+      )}
+    </>
   );
 }
 
