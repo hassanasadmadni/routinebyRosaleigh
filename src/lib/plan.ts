@@ -11,6 +11,7 @@ export interface PlanStep {
   how: string;
   frequency: string;
   caution: string;
+  benefits: string;
   reason: string;
 }
 
@@ -49,6 +50,7 @@ function stepsFor(result: SkinResult, phase: 1 | 2 | 3): PlanStep[] {
           !guide.caution.toLowerCase().includes("patch test")
             ? `Patch test on the inner forearm first. ${guide.caution}`
             : guide.caution,
+        benefits: guide.benefits,
         reason: step.reason,
       } satisfies PlanStep;
     });
