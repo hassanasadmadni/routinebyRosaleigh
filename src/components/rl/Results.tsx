@@ -11,6 +11,8 @@ import {
   Sun,
   Moon,
   Sparkles,
+  FlaskConical,
+  Dna,
 } from "lucide-react";
 import { BUNDLES, PRODUCTS } from "@/data/catalogue";
 import { metricsFor, type SkinResult } from "@/lib/analysis";
@@ -122,8 +124,9 @@ export function Results({ result, returning, onRestart }: Props) {
         {downloading ? "Preparing your PDF…" : "Download Your 30-Day Routine (PDF)"}
       </button>
 
+      <ScienceSection />
+
       <h2 className="mt-14 text-3xl">Recommended Package</h2>
-      <article className="rl-card mt-6 overflow-hidden">
         <div className="border-b border-border bg-surface px-6 py-5">
           <p className="text-xs uppercase tracking-[0.2em] text-highlight">Chosen for you</p>
           <h3 className="mt-1.5 text-2xl">{bundle.name}</h3>
@@ -220,6 +223,76 @@ function PhaseCard({
         </div>
       )}
     </article>
+  );
+}
+
+const SCIENCE_CARDS = [
+  {
+    icon: <Dna className="h-5 w-5" />,
+    product: "Anti-Wrinkle Sublingual Strips",
+    title: "Inside-Out Collagen Support",
+    body:
+      "Sublingual delivery bypasses the digestive system entirely — active ingredients dissolve through the mucous membrane directly into the bloodstream within seconds. This achieves up to 90% bioavailability compared to around 20–30% from a standard tablet. Once in circulation, the active compounds stimulate fibroblast cells in the dermis to synthesise new collagen and elastin — the structural proteins responsible for skin firmness and elasticity. Collagen synthesis naturally declines by approximately 1% per year from the mid-twenties, and targeted supplementation helps counteract this at the cellular level.",
+  },
+  {
+    icon: <FlaskConical className="h-5 w-5" />,
+    product: "Anti-Wrinkle Day Cream SPF50",
+    title: "UV Defence & Photoageing Prevention",
+    body:
+      "Up to 80% of visible facial ageing is caused by UV exposure — a process called photoageing. UV-A rays penetrate deep into the dermis, generating free radicals that fragment collagen fibres and degrade elastin, causing sagging and fine lines. UV-B rays damage the skin's surface DNA, accelerating cell turnover irregularities and pigmentation. SPF50 filters block 98% of UV-B radiation, while broad-spectrum filters neutralise UV-A. Applied daily, the cream also delivers humectants and emollients that maintain the skin's Natural Moisturising Factor (NMF), keeping the stratum corneum plump, flexible, and less prone to transepidermal water loss.",
+  },
+  {
+    icon: <Droplet className="h-5 w-5" />,
+    product: "Cleansing Tallow Base Lotion",
+    title: "Barrier-Safe Makeup & SPF Removal",
+    body:
+      "Conventional cleansers strip the skin's acid mantle — the slightly acidic pH 4.5–5.5 surface film that protects against bacteria, pollutants and moisture loss. Our tallow-based formula is pH-balanced to match the skin's natural surface, using lipid-soluble emollients that bind to oil-based products (SPF, makeup) and lift them cleanly without disturbing the tight junctions between skin cells. This preserves the ceramide-rich lipid matrix of the stratum corneum, preventing the compromised barrier function that leads to sensitivity, dehydration, and accelerated ageing.",
+  },
+  {
+    icon: <Sparkles className="h-5 w-5" />,
+    product: "Anti-Wrinkle Night Cream",
+    title: "Overnight Cell Renewal & Repair",
+    body:
+      "Skin cell turnover peaks between 11 pm and 4 am, driven by a natural surge in growth hormone during sleep. During this window, the skin's repair mechanisms are at their most active — DNA damage is corrected, collagen is synthesised, and the epidermal barrier is rebuilt. The night cream is formulated to work in synchrony with this circadian rhythm, delivering peptides that signal fibroblasts to increase collagen production, alongside occlusives that reduce transepidermal water loss by up to 50% overnight. Retinoid-mimicking actives accelerate keratinocyte turnover, progressively smoothing the skin's surface texture with continued use.",
+  },
+];
+
+function ScienceSection() {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="mt-14">
+      <h2 className="text-3xl">The Science Behind Your Routine</h2>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        How each product works at a biological level to deliver visible results.
+      </p>
+      <ul className="mt-6 space-y-3">
+        {SCIENCE_CARDS.map((card, i) => (
+          <li key={i} className="rl-card overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setOpen(open === i ? null : i)}
+              className="flex w-full items-center gap-3 px-5 py-4 text-left"
+            >
+              <span className="shrink-0 text-highlight">{card.icon}</span>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-highlight">
+                  {card.product}
+                </p>
+                <p className="mt-0.5 text-sm font-medium text-heading">{card.title}</p>
+              </div>
+              <ChevronDown
+                className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
+              />
+            </button>
+            {open === i && (
+              <div className="border-t border-border px-5 pb-5 pt-4">
+                <p className="text-xs leading-relaxed text-muted-foreground">{card.body}</p>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
