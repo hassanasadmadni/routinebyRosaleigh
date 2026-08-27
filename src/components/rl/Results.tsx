@@ -231,30 +231,30 @@ const SCIENCE_CARDS = [
   {
     icon: <Dna className="h-5 w-5" />,
     product: "Anti-Wrinkle Sublingual Strips",
-    title: "Inside-Out Collagen Support",
+    title: "Precision Delivery for Cellular Renewal",
     body:
-      "Sublingual delivery bypasses the digestive system entirely — active ingredients dissolve through the mucous membrane directly into the bloodstream within seconds. This achieves up to 90% bioavailability compared to around 20–30% from a standard tablet. Once in circulation, the active compounds stimulate fibroblast cells in the dermis to synthesise new collagen and elastin — the structural proteins responsible for skin firmness and elasticity. Collagen synthesis naturally declines by approximately 1% per year from the mid-twenties, and targeted supplementation helps counteract this at the cellular level.",
+      "Most oral supplements lose the majority of their potency in transit — stomach acid, digestive enzymes, and first-pass liver metabolism can reduce absorption to as little as 20%. Sublingual delivery works differently. Placed beneath the tongue, the strip dissolves against the sublingual mucosa, a thin membrane richly supplied with capillaries, allowing active compounds to pass directly into systemic circulation within seconds. Bioavailability reaches up to 90%, meaning the skin receives a far more concentrated and consistent dose. Once absorbed, these compounds reach the dermal fibroblasts — the cells responsible for producing collagen and elastin, the proteins that give skin its structure, bounce, and resistance to creasing. Collagen production declines by roughly 1% each year from the mid-twenties onward; this targeted delivery mechanism is designed to intervene at precisely that cellular level.",
   },
   {
     icon: <FlaskConical className="h-5 w-5" />,
     product: "Anti-Wrinkle Day Cream SPF50",
-    title: "UV Defence & Photoageing Prevention",
+    title: "Arresting Photoageing at the Source",
     body:
-      "Up to 80% of visible facial ageing is caused by UV exposure — a process called photoageing. UV-A rays penetrate deep into the dermis, generating free radicals that fragment collagen fibres and degrade elastin, causing sagging and fine lines. UV-B rays damage the skin's surface DNA, accelerating cell turnover irregularities and pigmentation. SPF50 filters block 98% of UV-B radiation, while broad-spectrum filters neutralise UV-A. Applied daily, the cream also delivers humectants and emollients that maintain the skin's Natural Moisturising Factor (NMF), keeping the stratum corneum plump, flexible, and less prone to transepidermal water loss.",
+      "Dermatological research consistently attributes up to 80% of visible facial ageing not to the passage of time, but to cumulative UV exposure — a distinct biological process known as photoageing. UV-A radiation, which penetrates cloud cover and glass, reaches deep into the dermis where it generates reactive oxygen species that attack collagen fibre networks and cross-link elastin, producing the sagging and fine lines associated with ageing skin. UV-B radiation, meanwhile, causes direct pyrimidine dimer formation in epidermal DNA, disrupting controlled cell turnover and driving uneven pigmentation. Broad-spectrum SPF50 addresses both pathways — blocking 98% of UV-B and significantly attenuating UV-A — while the cream's humectant and emollient complex replenishes the skin's Natural Moisturising Factor, maintaining stratum corneum integrity and reducing transepidermal water loss throughout the day.",
   },
   {
     icon: <Droplet className="h-5 w-5" />,
     product: "Cleansing Tallow Base Lotion",
-    title: "Barrier-Safe Makeup & SPF Removal",
+    title: "Cleansing Without Compromising the Barrier",
     body:
-      "Conventional cleansers strip the skin's acid mantle — the slightly acidic pH 4.5–5.5 surface film that protects against bacteria, pollutants and moisture loss. Our tallow-based formula is pH-balanced to match the skin's natural surface, using lipid-soluble emollients that bind to oil-based products (SPF, makeup) and lift them cleanly without disturbing the tight junctions between skin cells. This preserves the ceramide-rich lipid matrix of the stratum corneum, preventing the compromised barrier function that leads to sensitivity, dehydration, and accelerated ageing.",
+      "The skin's acid mantle — a finely balanced film sitting at approximately pH 4.5 to 5.5 — is the body's first line of defence against environmental aggressors, pathogenic bacteria, and moisture loss. Conventional surfactant-based cleansers are formulated at a higher pH and remove not only makeup and SPF but also the sebum, ceramides, and natural moisturising factors that hold the barrier together. The result is a compromised stratum corneum: tighter junctions between corneocytes break down, transepidermal water loss increases, and the skin becomes more susceptible to inflammation and accelerated ageing. The tallow base of this lotion is structurally similar to human sebum, allowing it to emulsify and lift oil-soluble products — including SPF and cosmetics — without altering surface pH or disrupting the lipid bilayer that underpins healthy, resilient skin.",
   },
   {
     icon: <Sparkles className="h-5 w-5" />,
     product: "Anti-Wrinkle Night Cream",
-    title: "Overnight Cell Renewal & Repair",
+    title: "Active Repair While You Rest",
     body:
-      "Skin cell turnover peaks between 11 pm and 4 am, driven by a natural surge in growth hormone during sleep. During this window, the skin's repair mechanisms are at their most active — DNA damage is corrected, collagen is synthesised, and the epidermal barrier is rebuilt. The night cream is formulated to work in synchrony with this circadian rhythm, delivering peptides that signal fibroblasts to increase collagen production, alongside occlusives that reduce transepidermal water loss by up to 50% overnight. Retinoid-mimicking actives accelerate keratinocyte turnover, progressively smoothing the skin's surface texture with continued use.",
+      "The night cream delivers a concentrated complex of peptides and occlusives that work through the hours you are asleep — the longest uninterrupted window in any day for a topical formula to remain on the skin undisturbed. Peptide sequences penetrate the epidermis and signal dermal fibroblasts to upregulate procollagen synthesis, directly rebuilding the structural framework that gives skin its firmness and resistance to creasing. Simultaneously, the occlusive layer reduces transepidermal water loss by up to 50%, sustaining the optimal hydration environment that allows active ingredients to remain soluble, mobile, and effective throughout the night. Applied consistently over 30 days, the cumulative effect is a measurable reduction in line depth, a visible improvement in surface texture, and noticeably firmer, denser-feeling skin by morning.",
   },
 ];
 
