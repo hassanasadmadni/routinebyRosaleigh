@@ -112,7 +112,7 @@ export function PhotoUpload({ onBack, onValid }: Props) {
       <BackLink onClick={onBack} />
       <h1 className="mt-6 text-3xl md:text-4xl">Upload your photo</h1>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        Please upload a clear, front-facing photo of your face only. No filters, objects, or other images. Natural daylight works best, no makeup if possible.
+        Natural daylight, no makeup if possible, and look straight at the camera. JPG or PNG.
       </p>
 
       <div
@@ -140,7 +140,7 @@ export function PhotoUpload({ onBack, onValid }: Props) {
           <Camera className="h-7 w-7 text-heading" />
         )}
         <p className="text-sm font-medium text-heading">
-          {state === "checking" ? "Checking your photo…" : "Drag and drop your face photo, or tap to upload"}
+          {state === "checking" ? "Checking your photo…" : "Drag and drop, or tap to upload"}
         </p>
         <p className="text-xs text-muted-foreground">JPG, PNG or WEBP — front-facing</p>
         <input
@@ -159,8 +159,8 @@ export function PhotoUpload({ onBack, onValid }: Props) {
       )}
 
       <ul className="mt-6 flex flex-wrap gap-2.5">
-        <Pill icon={<Lock className="h-3.5 w-3.5" />} label="Encrypted" />
-        <Pill icon={<Trash2 className="h-3.5 w-3.5" />} label="Auto-deleted" />
+        <Pill icon={<Lock className="h-3.5 w-3.5" />} label="Stays on your device" />
+        <Pill icon={<Trash2 className="h-3.5 w-3.5" />} label="Never uploaded" />
         <Pill icon={<ScanFace className="h-3.5 w-3.5" />} label="No facial recognition" />
       </ul>
     </section>
