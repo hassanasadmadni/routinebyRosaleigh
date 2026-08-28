@@ -271,7 +271,7 @@ function RadarChart({ result, metrics }: { result: SkinResult; metrics: ReturnTy
 
   const axes = Object.keys(raw) as (keyof typeof raw)[];
   const values = axes.map((k) => raw[k] / 100);
-  const cx = 110; const cy = 110; const r = 75;
+  const cx = 130; const cy = 130; const r = 85;
   const n = axes.length;
 
   function point(i: number, val: number) {
@@ -285,8 +285,8 @@ function RadarChart({ result, metrics }: { result: SkinResult; metrics: ReturnTy
   function labelPoint(i: number) {
     const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
     return {
-      x: cx + (r + 22) * Math.cos(angle),
-      y: cy + (r + 22) * Math.sin(angle),
+      x: cx + (r + 28) * Math.cos(angle),
+      y: cy + (r + 28) * Math.sin(angle),
     };
   }
 
@@ -301,7 +301,7 @@ function RadarChart({ result, metrics }: { result: SkinResult; metrics: ReturnTy
       <h3 className="mt-1 text-xl text-heading">Your Skin Dimensions</h3>
       <p className="mt-1 text-xs text-muted-foreground">Based on your quiz responses across five key skin health markers.</p>
       <div className="mt-4 flex justify-center">
-        <svg width="220" height="220" viewBox="0 0 220 220">
+        <svg width="260" height="260" viewBox="0 0 260 260">
           {/* Grid rings */}
           {rings.map((rv) =>
             axes.map((_, i) => {
@@ -756,8 +756,7 @@ function StepRow({ step }: { step: PlanStep }) {
       {isStrips && (
         <li className="rounded-xl border border-border bg-surface px-4 py-3 text-xs leading-relaxed text-muted-foreground">
           <p className="mb-1 font-semibold text-heading">Dietary Supplement Disclaimer</p>
-          <p>Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not intended to diagnose, treat, cure, or prevent any disease or medical condition. This product is not a substitute for a varied and balanced diet or a healthy lifestyle. Results may vary between individuals. Do not exceed the recommended daily intake. Keep out of reach of children. Store in a cool, dry place away from direct sunlight. Do not use without consulting your physician or pharmacist if you have a chronic or underlying health condition, are taking medication, or are pregnant or breastfeeding.
-.</p>
+          <p>Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not intended to diagnose, treat, cure, or prevent any disease or medical condition. This product is not a substitute for a varied and balanced diet or a healthy lifestyle. Results may vary between individuals. Do not exceed the recommended daily intake. Keep out of reach of children. Store in a cool, dry place away from direct sunlight. Do not use without consulting your physician or pharmacist if you have a chronic or underlying health condition, are taking medication, or are pregnant or breastfeeding.</p>
         </li>
       )}
     </>
