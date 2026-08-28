@@ -390,7 +390,6 @@ function RoutineTimeline({ result }: { result: SkinResult }) {
             {amSteps.map((step, i) => (
               <div key={i} className="relative mb-5 last:mb-0">
                 <div className="absolute -left-4 top-1 h-2.5 w-2.5 rounded-full border-2 border-highlight bg-background" />
-                <p className="text-[10px] text-muted-foreground">{step.time}</p>
                 <p className="text-sm font-medium text-heading">{step.icon} {step.label}</p>
                 <p className="text-xs text-muted-foreground">{step.note}</p>
               </div>
@@ -408,7 +407,6 @@ function RoutineTimeline({ result }: { result: SkinResult }) {
             {pmSteps.map((step, i) => (
               <div key={i} className="relative mb-5 last:mb-0">
                 <div className="absolute -left-4 top-1 h-2.5 w-2.5 rounded-full border-2 border-highlight bg-background" />
-                <p className="text-[10px] text-muted-foreground">{step.time}</p>
                 <p className="text-sm font-medium text-heading">{step.icon} {step.label}</p>
                 <p className="text-xs text-muted-foreground">{step.note}</p>
               </div>
@@ -678,6 +676,9 @@ function ScienceSection() {
                   <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-[0.15em] text-white/80">
                     Microscopy Illustration
                   </span>
+                  <span className="absolute bottom-3 right-3 text-[8px] text-white/50 tracking-wide">
+                    AI Reference Image
+                  </span>
                 </div>
                 <div className="px-5 pb-5 pt-4">
                   <p className="text-xs leading-relaxed text-muted-foreground">{card.body}</p>
@@ -755,7 +756,8 @@ function StepRow({ step }: { step: PlanStep }) {
       {isStrips && (
         <li className="rounded-xl border border-border bg-surface px-4 py-3 text-xs leading-relaxed text-muted-foreground">
           <p className="mb-1 font-semibold text-heading">Dietary Supplement Disclaimer</p>
-          <p>Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not intended to diagnose, treat, cure, or prevent any disease or medical condition. This product is not a substitute for a varied and balanced diet or a healthy lifestyle. Results may vary between individuals. Do not exceed the recommended daily intake. Keep out of reach of children. Store in a cool, dry place away from direct sunlight. If you are pregnant, breastfeeding, taking medication, or have an underlying health condition, consult your doctor or pharmacist before use.</p>
+          <p>Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not intended to diagnose, treat, cure, or prevent any disease or medical condition. This product is not a substitute for a varied and balanced diet or a healthy lifestyle. Results may vary between individuals. Do not exceed the recommended daily intake. Keep out of reach of children. Store in a cool, dry place away from direct sunlight. Do not use without consulting your physician or pharmacist if you have a chronic or underlying health condition, are taking medication, or are pregnant or breastfeeding.
+.</p>
         </li>
       )}
     </>
