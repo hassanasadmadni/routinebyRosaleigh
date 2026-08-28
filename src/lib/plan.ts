@@ -23,11 +23,8 @@ export interface PlanPhase {
   steps: PlanStep[];
 }
 
-const GENTLE_INTRO: ProductId[] = ["whipped-tallow", "heritage-balm", "night-cream", "foot-leg"];
-
-function frequencyFor(productId: ProductId, phase: 1 | 2 | 3): string {
-  if (productId === "foot-leg") return "As needed, after showering";
-  if (phase === 1 && GENTLE_INTRO.includes(productId)) return "Every other day";
+function frequencyFor(_productId: ProductId, phase: 1 | 2 | 3): string {
+  if (phase === 1) return "Every other day";
   return "Daily";
 }
 
@@ -45,9 +42,7 @@ function stepsFor(result: SkinResult, phase: 1 | 2 | 3): PlanStep[] {
         how: guide.how,
         frequency: frequencyFor(step.productId, phase),
         caution:
-          phase === 1 &&
-          GENTLE_INTRO.includes(step.productId) &&
-          !guide.caution.toLowerCase().includes("patch test")
+          phase === 1 && !guide.caution.toLowerCase().includes("patch test")
             ? `Patch test on the inner forearm first. ${guide.caution}`
             : guide.caution,
         benefits: guide.benefits,
@@ -60,24 +55,24 @@ function stepsFor(result: SkinResult, phase: 1 | 2 | 3): PlanStep[] {
 export function buildPlan(result: SkinResult): PlanPhase[] {
   return [
     {
-      id: "days-1-7",
+      id: "p1",
       title: "Days 1–7",
       subtitle: "Introduction Phase",
-      note: "Start gently. Patch test anything new on the inner forearm for 24 hours, and use richer tallow steps every other evening so your skin can adjust without overwhelm.",
+      note: "Start gently — use each product every other day for the first week so your skin can adjust. Patch test anything new on the inner forearm for 24 hours before full use.",
       steps: stepsFor(result, 1),
     },
     {
-      id: "days-8-21",
+      id: "p2",
       title: "Days 8–21",
       subtitle: "Building Phase",
-      note: "Your skin has settled, so move to the full morning and evening routine at normal frequency. Consistency matters far more than quantity here.",
+      note: "Your skin has settled, so move to the full morning and evening routine at daily frequency. Consistency matters far more than quantity at this stage.",
       steps: stepsFor(result, 2),
     },
     {
-      id: "days-22-30",
+      id: "p3",
       title: "Days 22–30",
       subtitle: "Established Routine",
-      note: "By now you should notice softer texture, steadier comfort and a more even tone. Beyond day 30, simply continue — adjust the balm layer up in colder months and down in warmer ones.",
+      note: "By now you should notice softer texture, steadier comfort, and a more even tone. Beyond day 30, simply continue — this routine is designed to be maintained long-term.",
       steps: stepsFor(result, 3),
     },
   ];
