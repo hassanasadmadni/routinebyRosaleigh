@@ -68,6 +68,6 @@ export const BUNDLES: Record<BundleId, Bundle> = {
     tagline:
       "Everything you need in one simple routine — Sublingual Strips and Day Cream SPF50 in the morning, Cleansing Lotion and Night Cream in the evening. Consistent, effective, effortless.",
     items: ["strips", "day-cream", "cleanser", "night-cream"],
-    url: "https://www.rosaleigh.co.uk",
+    url: "https://rosaleigh.uk/",
   },
 };
