@@ -208,7 +208,7 @@ function ScoreGauge({ metrics }: { metrics: ReturnType<typeof metricsFor> }) {
     <div className="rl-card mt-7 overflow-hidden p-6">
       <div className="flex flex-col items-center sm:flex-row sm:items-center sm:gap-8">
         <div className="relative shrink-0">
-          <svg width="180" height="110" viewBox="0 0 180 115">
+          <svg width="180" height="105" viewBox="0 0 180 105">
             {/* Track */}
             <path d={arc(startAngle, endAngle, R)} fill="none" stroke="#e1e7dc" strokeWidth={stroke} strokeLinecap="round" />
             {/* Fill */}
@@ -301,7 +301,7 @@ function RadarChart({ result, metrics }: { result: SkinResult; metrics: ReturnTy
       <h3 className="mt-1 text-xl text-heading">Your Skin Dimensions</h3>
       <p className="mt-1 text-xs text-muted-foreground">Based on your quiz responses across five key skin health markers.</p>
       <div className="mt-4 flex justify-center">
-        <svg width="260" height="260" viewBox="0 0 260 260">
+        <svg width="260" height="240" viewBox="10 20 240 220">
           {/* Grid rings */}
           {rings.map((rv) =>
             axes.map((_, i) => {
@@ -624,7 +624,7 @@ const SCIENCE_CARDS = [
   },
   {
     icon: <Droplet className="h-5 w-5" />,
-    product: "Cleansing Tallow Base Lotion",
+    product: "Rosaleigh Cleansing Balm",
     title: "Cleansing Without Compromising the Barrier",
     image: cleansingMicro,
     body: "The skin's acid mantle — a finely balanced film sitting at approximately pH 4.5 to 5.5 — is the body's first line of defence against environmental aggressors, pathogenic bacteria, and moisture loss. Conventional surfactant-based cleansers are formulated at a higher pH and remove not only makeup and SPF but also the sebum, ceramides, and natural moisturising factors that hold the barrier together. The result is a compromised stratum corneum: tighter junctions between corneocytes break down, transepidermal water loss increases, and the skin becomes more susceptible to inflammation and accelerated ageing. The tallow base of this lotion is structurally similar to human sebum, allowing it to emulsify and lift oil-soluble products — including SPF and cosmetics — without altering surface pH or disrupting the lipid bilayer that underpins healthy, resilient skin.",
@@ -756,7 +756,7 @@ function StepRow({ step }: { step: PlanStep }) {
       {isStrips && (
         <li className="rounded-xl border border-border bg-surface px-4 py-3 text-xs leading-relaxed text-muted-foreground">
           <p className="mb-1 font-semibold text-heading">Dietary Supplement Disclaimer</p>
-          <p>Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not intended to diagnose, treat, cure, or prevent any disease or medical condition. This product is not a substitute for a varied and balanced diet or a healthy lifestyle. Results may vary between individuals. Do not exceed the recommended daily intake. Keep out of reach of children. Store in a cool, dry place away from direct sunlight. Do not use without consulting your physician or pharmacist if you have a chronic or underlying health condition, are taking medication, or are pregnant or breastfeeding.</p>
+          <p>Rosaleigh Anti-Wrinkle Sublingual Strips are a food supplement and are not intended to diagnose, treat, cure, or prevent any disease or medical condition. This product is not a substitute for a varied and balanced diet or a healthy lifestyle. Results may vary between individuals. Do not exceed the recommended daily intake. Keep out of reach of children. Store in a cool, dry place away from direct sunlight. If you are pregnant, breastfeeding, taking medication, or have an underlying health condition, consult your doctor or pharmacist before use.</p>
         </li>
       )}
     </>
