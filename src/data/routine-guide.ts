@@ -21,10 +21,10 @@ export const PRODUCT_GUIDE: Record<ProductId, ProductGuide> = {
     benefits: "Broad-spectrum SPF50 shields against UV-induced ageing, hydrates throughout the day, smooths the appearance of fine lines, and supports a firm, even complexion.",
   },
   cleanser: {
-    quantity: "2–3 pumps",
-    how: "Massage over damp skin for 30 seconds to remove makeup, SPF and daily buildup. Rinse with lukewarm water and pat dry.",
+    quantity: "Small scoop (pea-sized)",
+    how: "Warm between fingertips until it melts, then massage over dry skin for 30 seconds to dissolve makeup, SPF and impurities. Add a little water to emulsify, then rinse thoroughly and pat dry.",
     caution: "Avoid the eye area. Skip if skin is broken or actively inflamed.",
-    benefits: "Gently removes makeup, SPF and impurities without stripping the skin barrier, leaving skin clean, calm, and ready to absorb your night treatment.",
+    benefits: "Gently melts away makeup, SPF and impurities without stripping the skin barrier, leaving skin clean, calm, balanced, and ready to absorb your night treatment.",
   },
   "night-cream": {
     quantity: "Pea-sized amount",
