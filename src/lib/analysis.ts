@@ -160,7 +160,7 @@ function buildRoutine(a: QuizAnswers, _bundleId: BundleId) {
     {
       productId: "cleanser",
       reason:
-        "First step every evening — gently lifts SPF, makeup and daily buildup so your skin is truly clean before your night treatment.",
+        "First step every evening — the balm melts onto dry skin, dissolving SPF, makeup and daily buildup thoroughly so your night treatment can actually reach the skin.",
     },
     {
       productId: "night-cream",
