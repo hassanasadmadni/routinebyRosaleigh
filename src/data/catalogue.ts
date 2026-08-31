@@ -23,8 +23,8 @@ export interface Product {
 export const PRODUCTS: Record<ProductId, Product> = {
   cleanser: {
     id: "cleanser",
-    name: "Cleansing Tallow Base Lotion",
-    shortName: "Cleansing Lotion",
+    name: "Rosaleigh Cleansing Balm",
+    shortName: "Cleansing Balm",
     image: cleanserImg,
     url: "https://www.rosaleigh.co.uk",
   },
@@ -66,8 +66,8 @@ export const BUNDLES: Record<BundleId, Bundle> = {
     id: "complete-routine",
     name: "The Complete Rosaleigh Routine",
     tagline:
-      "Everything you need in one simple routine — Sublingual Strips and Day Cream SPF50 in the morning, Cleansing Lotion and Night Cream in the evening. Consistent, effective, effortless.",
+      "Everything you need in one simple routine — Sublingual Strips and Day Cream SPF50 in the morning, Cleansing Balm and Night Cream in the evening. Consistent, effective, effortless.",
     items: ["strips", "day-cream", "cleanser", "night-cream"],
-    url: "https://rosaleigh.uk/",
+    url: "https://www.rosaleigh.co.uk",
   },
 };
