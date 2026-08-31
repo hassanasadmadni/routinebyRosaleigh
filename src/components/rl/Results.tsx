@@ -285,8 +285,8 @@ function RadarChart({ result, metrics }: { result: SkinResult; metrics: ReturnTy
   function labelPoint(i: number) {
     const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
     return {
-      x: cx + (r + 28) * Math.cos(angle),
-      y: cy + (r + 28) * Math.sin(angle),
+      x: cx + (r + 34) * Math.cos(angle),
+      y: cy + (r + 34) * Math.sin(angle),
     };
   }
 
@@ -301,7 +301,7 @@ function RadarChart({ result, metrics }: { result: SkinResult; metrics: ReturnTy
       <h3 className="mt-1 text-xl text-heading">Your Skin Dimensions</h3>
       <p className="mt-1 text-xs text-muted-foreground">Based on your quiz responses across five key skin health markers.</p>
       <div className="mt-4 flex justify-center">
-        <svg width="260" height="240" viewBox="10 20 240 220">
+        <svg width="300" height="260" viewBox="-10 20 280 220">
           {/* Grid rings */}
           {rings.map((rv) =>
             axes.map((_, i) => {
