@@ -34,7 +34,7 @@ export function Header() {
         <div className="grid grid-cols-3 items-center py-4">
           <div />
 
-          <a href="#" className="justify-self-center">
+          <a href="https://rosaleigh.uk/" className="justify-self-center">
             <img
               src={logoWordmark}
               alt="Rosaleigh"
