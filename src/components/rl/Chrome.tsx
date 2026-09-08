@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logoWordmark from "@/assets/logo-wordmark.png";
-import { Search, User, ShoppingCart, X } from "lucide-react";
+import { Search, User, ShoppingCart, X, Truck } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", href: "https://rosaleigh.uk/" },
@@ -11,7 +11,7 @@ const NAV_LINKS = [
 ];
 
 // Your live Shopify store's search endpoint — update if your domain changes.
-const STORE_SEARCH_URL = "https://rosaleigh.uk//search";
+const STORE_SEARCH_URL = "https://rosaleigh.uk/search";
 
 export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -29,6 +29,14 @@ export function Header() {
 
   return (
     <header className="border-b border-bar-line bg-bar">
+      {/* Announcement bar */}
+      <div className="bg-[#eff2ec] px-5 py-2">
+        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 text-sm text-[#2a342e]">
+          <Truck className="h-4 w-4" />
+          <span>Free UK shipping over £75</span>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-6xl px-5">
         {/* Top row: logo centered, icons right */}
         <div className="grid grid-cols-3 items-center py-4">
@@ -91,14 +99,14 @@ export function Header() {
               </button>
             )}
             <a
-              href="#"
+              href="https://rosaleigh.uk/account"
               aria-label="Account"
               className="text-bar-foreground/90 transition-colors hover:text-highlight"
             >
               <User className="h-5 w-5" />
             </a>
             <a
-              href="#"
+              href="https://rosaleigh.uk/cart"
               aria-label="Cart"
               className="text-bar-foreground/90 transition-colors hover:text-highlight"
             >
@@ -182,7 +190,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-5">
           {/* Logo + tagline */}
           <div className="md:col-span-1">
-            <a href="#">
+            <a href="https://rosaleigh.uk/">
               <img
                 src={logoWordmark}
                 alt="Rosaleigh"
@@ -301,11 +309,11 @@ export function Footer() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-6 text-xs text-bar-muted md:flex-row">
           <p>
             &copy; {new Date().getFullYear()} Rosaleigh. All rights reserved.{" "}
-            <a href="#" className="hover:text-highlight">
+            <a href="https://rosaleigh.uk/policies/legal-notice" className="hover:text-highlight">
               Legal Notice
             </a>{" "}
             |{" "}
-            <a href="#" className="hover:text-highlight">
+            <a href="https://rosaleigh.uk/policies/cookies-policy" className="hover:text-highlight">
               Cookies Policy
             </a>
           </p>
