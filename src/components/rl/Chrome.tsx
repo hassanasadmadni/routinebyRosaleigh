@@ -3,11 +3,11 @@ import logoWordmark from "@/assets/logo-wordmark.png";
 import { Search, User, ShoppingCart, X, Truck } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Home", href: "https://rosaleigh.uk/" },
-  { label: "Shop", href: "https://rosaleigh.uk/collections/all" },
-  { label: "Our Story", href: "https://rosaleigh.uk/pages/our-stoery" },
+  { label: "Home", href: "https://rosaleigh.co.uk/" },
+  { label: "Shop", href: "https://rosaleigh.co.uk/collections/all" },
+  { label: "Our Story", href: "https://rosaleigh.co.uk/pages/our-stoery" },
   { label: "Routine Finder", href: "https://routineby-rosaleigh.vercel.app/" },
-  { label: "Contact Us", href: "http://rosaleigh.uk/pages/contact" },
+  { label: "Contact Us", href: "http://rosaleigh.co.uk/pages/contact" },
 ];
 
 // Your live Shopify store's search endpoint — update if your domain changes.
