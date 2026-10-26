@@ -1,332 +1,260 @@
-import { useState } from "react";
-import logoWordmark from "@/assets/logo-wordmark.png";
-import { Search, User, ShoppingCart, X, Truck } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Search, User, ShoppingCart, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const NAV_LINKS = [
-  { label: "Home", href: "https://rosaleigh.co.uk/" },
-  { label: "Shop", href: "https://rosaleigh.co.uk/collections/all" },
-  { label: "Our Story", href: "https://rosaleigh.co.uk/pages/ourstory" },
-  { label: "Routine Finder", href: "https://routineby-rosaleigh.vercel.app/" },
-  { label: "Contact Us", href: "http://rosaleigh.co.uk/pages/contact" },
+  { label: "Skin care",   href: "https://www.rosaleigh.co.uk/collections/skin-care" },
+  { label: "Beauty",      href: "https://www.rosaleigh.co.uk/collections/beauty" },
+  { label: "Our story",   href: "https://www.rosaleigh.co.uk/pages/our-story" },
+  { label: "Ingredients", href: "https://www.rosaleigh.co.uk/pages/ingredients" },
 ];
 
-// Your live Shopify store's search endpoint — update if your domain changes.
-const STORE_SEARCH_URL = "https://rosaleigh.co.uk/search";
-
 export function Header() {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const [announcementVisible, setAnnouncementVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
-  const runSearch = () => {
-    const trimmed = query.trim();
-    if (!trimmed) return;
-    window.open(
-      `${STORE_SEARCH_URL}?q=${encodeURIComponent(trimmed)}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="border-b border-bar-line bg-bar">
+    <>
       {/* Announcement bar */}
-      <div className="bg-[#eff2ec] px-5 py-2">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 text-sm text-[#2a342e]">
-          <Truck className="h-4 w-4" />
-          <span>Free UK shipping over £75</span>
+      {announcementVisible && (
+        <div className="relative flex items-center justify-center gap-2 px-5 py-2.5 text-sm"
+          style={{ background: "#231F20", color: "#D4AF6E", fontFamily: "Figtree, sans-serif" }}>
+          <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <span>10% off your first order</span>
+          <button type="button" onClick={() => setAnnouncementVisible(false)}
+            className="absolute right-4 opacity-60 hover:opacity-100" aria-label="Dismiss">
+            <X className="h-3.5 w-3.5" />
+          </button>
         </div>
-      </div>
+      )}
 
-      <div className="mx-auto max-w-6xl px-5">
-        {/* Top row: logo centered, icons right */}
-        <div className="grid grid-cols-3 items-center py-4">
-          <div />
-
-          <a href="https://rosaleigh.co.uk/" className="justify-self-center">
-            <img
-              src={logoWordmark}
-              alt="Rosaleigh"
-              width={220}
-              height={61}
-              className="h-[61px] w-[220px] object-contain"
-            />
+      {/* Main header */}
+      <header className={`sticky top-0 z-30 transition-shadow ${scrolled ? "shadow-sm" : ""}`}
+        style={{ background: "#fff", fontFamily: "Figtree, sans-serif" }}>
+        <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-4">
+          <a href="https://www.rosaleigh.co.uk" className="shrink-0">
+            <img src={logo} alt="Rosaleigh" className="h-10 w-auto object-contain" />
           </a>
-
-          <div className="flex items-center justify-end gap-4">
-            {searchOpen ? (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  runSearch();
-                }}
-                className="flex items-center gap-2"
-              >
-                <input
-                  autoFocus
-                  type="search"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search products..."
-                  className="w-40 border-b border-bar-line bg-transparent text-sm text-bar-foreground placeholder:text-bar-muted focus:outline-none sm:w-56"
-                />
-                <button
-                  type="submit"
-                  aria-label="Run search"
-                  className="text-bar-foreground/90 transition-colors hover:text-highlight"
-                >
-                  <Search className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Close search"
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setQuery("");
-                  }}
-                  className="text-bar-foreground/90 transition-colors hover:text-highlight"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </form>
-            ) : (
-              <button
-                type="button"
-                aria-label="Search"
-                onClick={() => setSearchOpen(true)}
-                className="text-bar-foreground/90 transition-colors hover:text-highlight"
-              >
-                <Search className="h-5 w-5" />
-              </button>
-            )}
-            <a
-              href="https://rosaleigh.co.uk/account"
-              aria-label="Account"
-              className="text-bar-foreground/90 transition-colors hover:text-highlight"
-            >
+          <div className="flex flex-1 items-center gap-2 rounded-full px-4 py-2.5 mx-4"
+            style={{ background: "#F5F0EB" }}>
+            <Search className="h-4 w-4 shrink-0" style={{ color: "#888" }} />
+            <span className="text-sm" style={{ color: "#999" }}>Search skin care and beauty</span>
+          </div>
+          <div className="flex items-center gap-4 shrink-0">
+            <a href="https://www.rosaleigh.co.uk/account" aria-label="Account"
+              className="transition-opacity hover:opacity-70" style={{ color: "#231F20" }}>
               <User className="h-5 w-5" />
             </a>
-            <a
-              href="https://rosaleigh.co.uk/cart"
-              aria-label="Cart"
-              className="text-bar-foreground/90 transition-colors hover:text-highlight"
-            >
+            <a href="https://www.rosaleigh.co.uk/cart" aria-label="Cart"
+              className="transition-opacity hover:opacity-70" style={{ color: "#231F20" }}>
               <ShoppingCart className="h-5 w-5" />
             </a>
           </div>
         </div>
-
-        {/* Nav row */}
-        <nav className="flex items-center justify-center gap-8 pb-4">
+        <nav className="mx-auto flex max-w-7xl items-center gap-1 px-6 pb-3">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-bar-foreground/90 transition-colors hover:text-highlight"
-            >
-              {link.label}
-            </a>
+            <a key={link.label} href={link.href}
+              className="px-3 py-1.5 text-sm transition-colors hover:opacity-70"
+              style={{ color: "#231F20" }}>{link.label}</a>
           ))}
+          <a href="#"
+            className="ml-1 rounded-full px-4 py-1.5 text-sm font-medium transition-opacity hover:opacity-90"
+            style={{ background: "#D4AF6E", color: "#231F20" }}>
+            AI Routine
+          </a>
         </nav>
-      </div>
-    </header>
+        <div style={{ height: "1px", background: "#E8E2DC" }} />
+      </header>
+    </>
   );
 }
 
 export const DISCLAIMER =
   "This analysis is generated by AI for general skincare guidance only. It is not a medical or dermatological diagnosis. Individual results vary. If you have a diagnosed skin condition, please consult a dermatologist before starting a new routine.";
 
-const ABOUT_LINKS = [
-  { label: "Home", href: "https://rosaleigh.co.uk/" },
-  { label: "Shop", href: "https://rosaleigh.co.uk/collections/all" },
-  { label: "Our Story", href: "https://rosaleigh.co.uk/pages/ourstory" },
-  { label: "Routine Finder", href: "https://routineby-rosaleigh.vercel.app/" },
-  { label: "Contact Us", href: "https://rosaleigh.co.uk/pages/contact" },
+const SHOP_LINKS = [
+  { label: "Skin care",  href: "https://www.rosaleigh.co.uk/collections/skin-care" },
+  { label: "Beauty",     href: "https://www.rosaleigh.co.uk/collections/beauty" },
+  { label: "The Trio",   href: "https://www.rosaleigh.co.uk/collections/bundles" },
+  { label: "Shop all",   href: "https://www.rosaleigh.co.uk/collections/all" },
 ];
 
-const CUSTOMER_CARE_LINKS = [
-  { label: "Contact Us", href: "https://rosaleigh.co.uk/pages/contact" },
-  { label: "Shipping Policy", href: "https://rosaleigh.co.uk/policies/shipping-policy" },
-  { label: "Refund Policy", href: "https://rosaleigh.co.uk/policies/refund-policy" },
-  { label: "Privacy Policy", href: "https://rosaleigh.co.uk/policies/privacy-policy" },
-  { label: "Terms of Service", href: "https://rosaleigh.co.uk/policies/terms-of-service" },
+const HELP_LINKS = [
+  { label: "Contact us",       href: "https://www.rosaleigh.co.uk/pages/contact" },
+  { label: "FAQ",              href: "https://www.rosaleigh.co.uk/pages/faq" },
+  { label: "Shipping",         href: "https://www.rosaleigh.co.uk/policies/shipping-policy" },
+  { label: "Returns & refunds",href: "https://www.rosaleigh.co.uk/policies/refund-policy" },
+];
+
+const ABOUT_LINKS = [
+  { label: "Our story",      href: "https://www.rosaleigh.co.uk/pages/our-story" },
+  { label: "Ingredients",    href: "https://www.rosaleigh.co.uk/pages/ingredients" },
+  { label: "Routine Finder", href: "#" },
 ];
 
 const SOCIALS = [
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61593593936014",
-    path: "M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.653-.006c-.812 0-1.542.062-2.049.196-.512.135-.874.373-1.147.6-.273.227-.443.567-.539.985-.096.418-.144.913-.144 1.487v1.309h5.243l-.6 3.667h-4.643v7.98H9.101Z",
-  },
-  {
-    label: "Pinterest",
-    href: "https://pin.it/3zDGu3Ofw",
-    path: "M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.15-2.911 1.014 0 1.503.762 1.503 1.673 0 1.019-.65 2.541-.983 3.951-.279 1.183.593 2.148 1.759 2.148 2.111 0 3.633-2.674 3.633-6.442 0-3.412-2.615-5.638-5.881-5.638-3.888 0-6.14 2.917-6.14 5.945 0 1.185.457 2.457 1.024 3.135.114.132.129.256.096.395-.104.437-.336 1.339-.379 1.526-.06.267-.19.323-.436.196-1.635-.769-2.656-3.174-2.656-5.098 0-4.019 2.926-7.694 8.415-7.694 4.42 0 7.856 3.148 7.856 7.354 0 4.395-2.774 7.929-6.615 7.929-1.292 0-2.51-.674-2.923-1.464l-.795 3.017c-.288 1.116-1.066 2.518-1.587 3.371 1.196.371 2.462.573 3.777.573 6.605 0 11.985-5.366 11.985-11.987C23.97 5.367 18.6 0 11.985 0h.032z",
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/rosaleigh_uk/",
-    path: "M12 0C8.74 0 8.333.014 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.986 8.74 24 12 24s3.667-.014 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.014-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.014 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z",
-  },
-  {
-    label: "TikTok",
-    href: "https://www.tiktok.com/@rosaleigh.uk",
-    path: "M16.6 5.82c-1.007-1.024-1.575-2.415-1.575-3.82h-3.045v13.5c0 1.653-1.345 3-3 3s-3-1.347-3-3 1.345-3 3-3c.31 0 .61.048.892.135V9.55a6.32 6.32 0 0 0-.892-.065c-3.33 0-6.045 2.715-6.045 6.045s2.715 6.045 6.045 6.045 6.045-2.715 6.045-6.045V9.276a9.32 9.32 0 0 0 5.455 1.745V8c-1.517 0-2.926-.535-4.03-1.42-.32-.257-.612-.545-.87-.86l.02.1z",
-  },
+  { label: "Facebook",  href: "https://www.facebook.com/rosaleighuk",
+    path: "M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12" },
+  { label: "Pinterest", href: "https://www.pinterest.com/rosaleighuk",
+    path: "M12 2a10 10 0 0 0-3.65 19.3c-.05-.83-.09-2.1.02-3 .1-.8.66-5.14.66-5.14s-.17-.34-.17-.83c0-.78.45-1.36 1.02-1.36.48 0 .71.36.71.79 0 .48-.31 1.2-.46 1.87-.13.56.28 1.02.83 1.02 1 0 1.77-1.06 1.77-2.58 0-1.35-.97-2.29-2.35-2.29-1.6 0-2.54 1.2-2.54 2.44 0 .48.18.99.42 1.27a.17.17 0 0 1 .04.16l-.16.66c-.03.11-.09.14-.2.08-.77-.36-1.25-1.48-1.25-2.38 0-1.94 1.41-3.72 4.06-3.72 2.13 0 3.79 1.52 3.79 3.55 0 2.12-1.34 3.82-3.19 3.82-.62 0-1.21-.32-1.41-.71l-.38 1.47c-.14.53-.51 1.2-.76 1.6A10 10 0 1 0 12 2" },
+  { label: "Instagram", href: "https://www.instagram.com/rosaleigh_uk",
+    path: "M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.76 4.9 4.9 0 0 1-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.76-1.15 4.9 4.9 0 0 1-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 0 1 5.44.54c.64-.25 1.37-.42 2.43-.47C8.94.02 9.28.01 12 .01Zm0 3.6a6.39 6.39 0 1 0 0 12.78 6.39 6.39 0 0 0 0-12.78Zm0 10.55a4.16 4.16 0 1 1 0-8.32 4.16 4.16 0 0 1 0 8.32Zm6.65-10.8a1.49 1.49 0 1 1-2.98 0 1.49 1.49 0 0 1 2.98 0Z" },
+  { label: "TikTok",   href: "https://www.tiktok.com/@rosaleigh_uk",
+    path: "M16.6 2h-3.2v13.2a2.9 2.9 0 1 1-2.05-2.77V9.1a6.1 6.1 0 1 0 5.25 6.05V8.3a7.9 7.9 0 0 0 4.4 1.34V6.4a4.5 4.5 0 0 1-4.4-4.4Z" },
 ];
 
-const PAYMENT_ICONS = [
-  { name: "Diners Club", file: "diners" },
-  { name: "Discover", file: "discover" },
-  { name: "Mastercard", file: "mastercard" },
-  { name: "Visa", file: "visa" },
-  { name: "PayPal", file: "paypal" },
-  { name: "American Express", file: "amex" },
-];
+const GOOD_TO_KNOW =
+  "Food supplements: not medicines; do not exceed the recommended daily dose; not a substitute for a varied diet; keep out of reach of children; consult a professional if pregnant, breastfeeding or taking medication. Skincare: patch test before first use. AI images for illustration.";
 
 export function Footer() {
   return (
-    <footer className="border-t border-bar-line bg-bar">
-      <div className="mx-auto max-w-6xl px-5 py-14">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-5">
-          {/* Logo + tagline */}
-          <div className="md:col-span-1">
-            <a href="https://rosaleigh.co.uk/">
-              <img
-                src={logoWordmark}
-                alt="Rosaleigh"
-                width={200}
-                height={55}
-                className="h-[55px] w-[200px] object-contain"
-              />
-            </a>
-            <p className="mt-4 text-sm leading-relaxed text-bar-muted">
-              UK-based skincare, done properly. Every claim we make, we stand
-              behind.
+    <footer style={{ background: "#1C1917", fontFamily: "Figtree, sans-serif" }}>
+
+      {/* ── Subscribe band ── */}
+      <div className="mx-auto max-w-7xl px-6 py-14">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-md">
+            <h2 className="text-3xl font-semibold leading-snug" style={{ color: "#fff" }}>
+              Get <em className="not-italic font-bold" style={{ color: "#D4AF6E" }}>10% off</em> your first order
+            </h2>
+            <p className="mt-2 text-sm" style={{ color: "#A09A96" }}>
+              Routine tips, new launches and members-only offers. Unsubscribe anytime.
             </p>
           </div>
-
-          {/* About */}
-          <div>
-            <h3 className="font-display text-lg text-bar-foreground">About</h3>
-            <ul className="mt-4 space-y-2">
-              {ABOUT_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-bar-muted transition-colors hover:text-highlight"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Customer Care */}
-          <div>
-            <h3 className="font-display text-lg text-bar-foreground">
-              Customer Care
-            </h3>
-            <ul className="mt-4 space-y-2">
-              {CUSTOMER_CARE_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-bar-muted transition-colors hover:text-highlight"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Disclaimer */}
-          <div>
-            <h3 className="font-display text-lg text-bar-foreground">
-              Disclaimer:
-            </h3>
-            <p className="mt-4 text-sm leading-relaxed text-bar-muted">
-              {DISCLAIMER}
-            </p>
-          </div>
-
-          {/* Subscribe */}
-          <div>
-            <h3 className="font-display text-lg text-bar-foreground">
-              Subscribe to our emails
-            </h3>
-            <form className="mt-4 flex items-center border-b border-bar-line pb-1">
+          <div className="flex flex-col gap-2 md:w-[420px]">
+            <form className="flex gap-3" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
-                placeholder="Email"
-                aria-label="Email"
-                className="w-full bg-transparent text-sm text-bar-foreground placeholder:text-bar-muted focus:outline-none"
+                placeholder="Email address"
+                aria-label="Email address"
+                className="flex-1 rounded-full border px-5 py-3 text-sm focus:outline-none"
+                style={{ background: "transparent", borderColor: "#3a3532", color: "#fff" }}
               />
-              <button
-                type="submit"
-                aria-label="Subscribe"
-                className="text-bar-foreground transition-colors hover:text-highlight"
-              >
-                &rarr;
+              <button type="submit"
+                className="rounded-full px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
+                style={{ background: "#D4AF6E", color: "#1C1917" }}>
+                Subscribe
               </button>
             </form>
-            <p className="mt-4 text-xs leading-relaxed text-bar-muted">
-              Subscribe to our newsletter and get 10% off your first purchase
+            <p className="text-xs px-2" style={{ color: "#A09A96" }}>
+              By subscribing you agree to receive marketing emails from Rosaleigh. See our{" "}
+              <a href="https://www.rosaleigh.co.uk/policies/privacy-policy"
+                className="underline hover:text-[#D4AF6E] transition-colors" style={{ color: "#A09A96" }}>
+                Privacy policy
+              </a>.
             </p>
+          </div>
+        </div>
+      </div>
 
+      {/* Divider */}
+      <div style={{ borderTop: "1px solid #2e2b28" }} />
+
+      {/* ── Main footer grid ── */}
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
+
+          {/* Logo + tagline + socials */}
+          <div>
+            <a href="https://www.rosaleigh.co.uk">
+              <img src={logo} alt="Rosaleigh" className="h-10 w-auto object-contain"
+                style={{ filter: "brightness(0) saturate(100%) invert(82%) sepia(28%) saturate(500%) hue-rotate(5deg) brightness(95%)" }} />
+            </a>
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "#A09A96" }}>
+              We stand by every drop. UK-based skincare you can believe in.
+            </p>
             <div className="mt-6 flex items-center gap-3">
-              {SOCIALS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(social.href, "_blank", "noopener,noreferrer");
-                  }}
-                  aria-label={social.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-bar-line text-bar-foreground transition-colors hover:border-highlight hover:text-highlight"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                    aria-hidden="true"
-                  >
-                    <path d={social.path} />
+              {SOCIALS.map((s) => (
+                <a key={s.label} href={s.href} aria-label={s.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors hover:border-[#D4AF6E] hover:text-[#D4AF6E]"
+                  style={{ borderColor: "#3a3532", color: "#A09A96" }}>
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                    <path d={s.path} />
                   </svg>
                 </a>
               ))}
             </div>
           </div>
+
+          {/* SHOP */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: "#D4AF6E" }}>Shop</h3>
+            <ul className="space-y-3">
+              {SHOP_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm transition-colors hover:text-[#D4AF6E]"
+                    style={{ color: "#A09A96" }}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* HELP */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: "#D4AF6E" }}>Help</h3>
+            <ul className="space-y-3">
+              {HELP_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm transition-colors hover:text-[#D4AF6E]"
+                    style={{ color: "#A09A96" }}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ABOUT */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: "#D4AF6E" }}>About</h3>
+            <ul className="space-y-3">
+              {ABOUT_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm transition-colors hover:text-[#D4AF6E]"
+                    style={{ color: "#A09A96" }}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* GOOD TO KNOW box */}
+        <div className="mt-10 rounded-xl border px-6 py-5"
+          style={{ borderColor: "#2e2b28", background: "#211E1B" }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2"
+            style={{ color: "#D4AF6E" }}>Good to know</p>
+          <p className="text-sm leading-relaxed" style={{ color: "#A09A96" }}>{GOOD_TO_KNOW}</p>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-bar-line">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-6 text-xs text-bar-muted md:flex-row">
-          <p>
-            &copy; {new Date().getFullYear()} Rosaleigh. All rights reserved.{" "}
-            <a href="https://rosaleigh.co.uk/policies/legal-notice" className="hover:text-highlight">
-              Legal Notice
-            </a>{" "}
-            |{" "}
-            <a href="https://rosaleigh.co.uk/policies/cookies-policy" className="hover:text-highlight">
-              Cookies Policy
-            </a>
-          </p>
+      {/* ── Bottom bar ── */}
+      <div style={{ borderTop: "1px solid #2e2b28" }}>
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs md:flex-row"
+          style={{ color: "#A09A96" }}>
           <div className="flex flex-wrap items-center gap-2">
-            {PAYMENT_ICONS.map((icon) => (
-              <img
-                key={icon.name}
-                src={`https://cdn.jsdelivr.net/gh/aaronfagan/svg-credit-card-payment-icons@main/flat-rounded/${icon.file}.svg`}
-                alt={icon.name}
-                width={38}
-                height={24}
-                className="h-6 w-auto rounded"
-              />
+            <span>© 2026 Rosaleigh</span>
+            {["Privacy", "Terms", "Cookies", "Legal notice"].map((label, i) => (
+              <span key={label} className="flex items-center gap-2">
+                <span style={{ color: "#3a3532" }}>·</span>
+                <a href={`https://www.rosaleigh.co.uk/policies/${label.toLowerCase().replace(" ", "-")}`}
+                  className="hover:text-[#D4AF6E] transition-colors"
+                  style={{ color: "#A09A96" }}>{label}</a>
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {["Visa", "Mastercard", "Amex", "PayPal", "Diners", "Discover"].map((name) => (
+              <span key={name} className="rounded px-2 py-1 text-[10px] font-medium"
+                style={{ border: "1px solid #3a3532", color: "#A09A96" }}>{name}</span>
             ))}
           </div>
         </div>
