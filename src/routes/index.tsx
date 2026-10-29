@@ -77,7 +77,7 @@ function SkinAnalysisPage() {
       setResult(computed);
       setReturning(false);
       setStage("results");
-    }, 5500);
+    }, 3200);
   };
 
   const completeFromPhoto = (seed: string, dataUrl?: string) => {
@@ -94,7 +94,7 @@ function SkinAnalysisPage() {
       setResult(computed);
       setReturning(false);
       setStage("results");
-    }, 5500);
+    }, 3200);
   };
 
   const restart = () => {
@@ -143,9 +143,9 @@ function AnalysingScreen() {
   useEffect(() => {
     const stepInterval = setInterval(() => {
       setStep((s) => Math.min(s + 1, ANALYSIS_STEPS.length - 1));
-    }, 1000);
+    }, 600);
     const progressInterval = setInterval(() => {
-      setProgress((p) => (p >= 98 ? 98 : p + Math.random() * 3.5));
+      setProgress((p) => (p >= 98 ? 98 : p + Math.random() * 6));
     }, 120);
     return () => {
       clearInterval(stepInterval);
