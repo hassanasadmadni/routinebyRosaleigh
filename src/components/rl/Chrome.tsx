@@ -21,53 +21,76 @@ export function Header() {
 
   return (
     <>
-      {/* Announcement bar */}
       {announcementVisible && (
-        <div className="relative flex items-center justify-center gap-2 px-5 py-2.5 text-sm"
-          style={{ background: "#231F20", color: "#D4AF6E", fontFamily: "Figtree, sans-serif" }}>
-          <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
+        <div
+          className="relative flex items-center justify-center gap-2 px-5 py-2.5 text-sm"
+          style={{ background: "#231F20", color: "#D4AF6E", fontFamily: "Figtree, sans-serif" }}
+        >
           <span>10% off your first order</span>
-          <button type="button" onClick={() => setAnnouncementVisible(false)}
-            className="absolute right-4 opacity-60 hover:opacity-100" aria-label="Dismiss">
+          <button
+            type="button"
+            onClick={() => setAnnouncementVisible(false)}
+            className="absolute right-4 opacity-60 hover:opacity-100"
+            aria-label="Dismiss"
+          >
             <X className="h-3.5 w-3.5" />
           </button>
         </div>
       )}
 
-      {/* Main header */}
-      <header className={`sticky top-0 z-30 transition-shadow ${scrolled ? "shadow-sm" : ""}`}
-        style={{ background: "#fff", fontFamily: "Figtree, sans-serif" }}>
+      <header
+        className={`sticky top-0 z-30 transition-shadow ${scrolled ? "shadow-sm" : ""}`}
+        style={{ background: "#fff", fontFamily: "Figtree, sans-serif" }}
+      >
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-4">
           <a href="https://www.rosaleigh.co.uk" className="shrink-0">
             <img src={logo} alt="Rosaleigh" className="h-10 w-auto object-contain" />
           </a>
-          <div className="flex flex-1 items-center gap-2 rounded-full px-4 py-2.5 mx-4"
-            style={{ background: "#F5F0EB" }}>
+          <div
+            className="flex flex-1 items-center gap-2 rounded-full px-4 py-2.5 mx-4"
+            style={{ background: "#F5F0EB" }}
+          >
             <Search className="h-4 w-4 shrink-0" style={{ color: "#888" }} />
-            <span className="text-sm" style={{ color: "#999" }}>Search skin care and beauty</span>
+            <span className="text-sm" style={{ color: "#999" }}>
+              Search skin care and beauty
+            </span>
           </div>
           <div className="flex items-center gap-4 shrink-0">
-            <a href="https://www.rosaleigh.co.uk/account" aria-label="Account"
-              className="transition-opacity hover:opacity-70" style={{ color: "#231F20" }}>
+            <a
+              href="https://www.rosaleigh.co.uk/account"
+              aria-label="Account"
+              className="transition-opacity hover:opacity-70"
+              style={{ color: "#231F20" }}
+            >
               <User className="h-5 w-5" />
             </a>
-            <a href="https://www.rosaleigh.co.uk/cart" aria-label="Cart"
-              className="transition-opacity hover:opacity-70" style={{ color: "#231F20" }}>
+            <a
+              href="https://www.rosaleigh.co.uk/cart"
+              aria-label="Cart"
+              className="transition-opacity hover:opacity-70"
+              style={{ color: "#231F20" }}
+            >
               <ShoppingCart className="h-5 w-5" />
             </a>
           </div>
         </div>
+
         <nav className="mx-auto flex max-w-7xl items-center gap-1 px-6 pb-3">
           {NAV_LINKS.map((link) => (
-            <a key={link.label} href={link.href}
+            <a
+              key={link.label}
+              href={link.href}
               className="px-3 py-1.5 text-sm transition-colors hover:opacity-70"
-              style={{ color: "#231F20" }}>{link.label}</a>
+              style={{ color: "#231F20" }}
+            >
+              {link.label}
+            </a>
           ))}
-          <a href="#"
+          <a
+            href="#"
             className="ml-1 rounded-full px-4 py-1.5 text-sm font-medium transition-opacity hover:opacity-90"
-            style={{ background: "#D4AF6E", color: "#231F20" }}>
+            style={{ background: "#D4AF6E", color: "#231F20" }}
+          >
             AI Routine
           </a>
         </nav>
@@ -88,10 +111,10 @@ const SHOP_LINKS = [
 ];
 
 const HELP_LINKS = [
-  { label: "Contact us",       href: "https://www.rosaleigh.co.uk/pages/contact" },
-  { label: "FAQ",              href: "https://www.rosaleigh.co.uk/pages/faq" },
-  { label: "Shipping",         href: "https://www.rosaleigh.co.uk/policies/shipping-policy" },
-  { label: "Returns & refunds",href: "https://www.rosaleigh.co.uk/policies/refund-policy" },
+  { label: "Contact us",        href: "https://www.rosaleigh.co.uk/pages/contact" },
+  { label: "FAQ",               href: "https://www.rosaleigh.co.uk/pages/faq" },
+  { label: "Shipping",          href: "https://www.rosaleigh.co.uk/policies/shipping-policy" },
+  { label: "Returns & refunds", href: "https://www.rosaleigh.co.uk/policies/refund-policy" },
 ];
 
 const ABOUT_LINKS = [
@@ -101,36 +124,56 @@ const ABOUT_LINKS = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook",  href: "https://www.facebook.com/rosaleighuk",
-    path: "M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12" },
-  { label: "Pinterest", href: "https://www.pinterest.com/rosaleighuk",
-    path: "M12 2a10 10 0 0 0-3.65 19.3c-.05-.83-.09-2.1.02-3 .1-.8.66-5.14.66-5.14s-.17-.34-.17-.83c0-.78.45-1.36 1.02-1.36.48 0 .71.36.71.79 0 .48-.31 1.2-.46 1.87-.13.56.28 1.02.83 1.02 1 0 1.77-1.06 1.77-2.58 0-1.35-.97-2.29-2.35-2.29-1.6 0-2.54 1.2-2.54 2.44 0 .48.18.99.42 1.27a.17.17 0 0 1 .04.16l-.16.66c-.03.11-.09.14-.2.08-.77-.36-1.25-1.48-1.25-2.38 0-1.94 1.41-3.72 4.06-3.72 2.13 0 3.79 1.52 3.79 3.55 0 2.12-1.34 3.82-3.19 3.82-.62 0-1.21-.32-1.41-.71l-.38 1.47c-.14.53-.51 1.2-.76 1.6A10 10 0 1 0 12 2" },
-  { label: "Instagram", href: "https://www.instagram.com/rosaleigh_uk",
-    path: "M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.76 4.9 4.9 0 0 1-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.76-1.15 4.9 4.9 0 0 1-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 0 1 5.44.54c.64-.25 1.37-.42 2.43-.47C8.94.02 9.28.01 12 .01Zm0 3.6a6.39 6.39 0 1 0 0 12.78 6.39 6.39 0 0 0 0-12.78Zm0 10.55a4.16 4.16 0 1 1 0-8.32 4.16 4.16 0 0 1 0 8.32Zm6.65-10.8a1.49 1.49 0 1 1-2.98 0 1.49 1.49 0 0 1 2.98 0Z" },
-  { label: "TikTok",   href: "https://www.tiktok.com/@rosaleigh_uk",
-    path: "M16.6 2h-3.2v13.2a2.9 2.9 0 1 1-2.05-2.77V9.1a6.1 6.1 0 1 0 5.25 6.05V8.3a7.9 7.9 0 0 0 4.4 1.34V6.4a4.5 4.5 0 0 1-4.4-4.4Z" },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/rosaleighuk",
+    path: "M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12",
+  },
+  {
+    label: "Pinterest",
+    href: "https://www.pinterest.com/rosaleighuk",
+    path: "M12 2a10 10 0 0 0-3.65 19.3c-.05-.83-.09-2.1.02-3 .1-.8.66-5.14.66-5.14s-.17-.34-.17-.83c0-.78.45-1.36 1.02-1.36.48 0 .71.36.71.79 0 .48-.31 1.2-.46 1.87-.13.56.28 1.02.83 1.02 1 0 1.77-1.06 1.77-2.58 0-1.35-.97-2.29-2.35-2.29-1.6 0-2.54 1.2-2.54 2.44 0 .48.18.99.42 1.27a.17.17 0 0 1 .04.16l-.16.66c-.03.11-.09.14-.2.08-.77-.36-1.25-1.48-1.25-2.38 0-1.94 1.41-3.72 4.06-3.72 2.13 0 3.79 1.52 3.79 3.55 0 2.12-1.34 3.82-3.19 3.82-.62 0-1.21-.32-1.41-.71l-.38 1.47c-.14.53-.51 1.2-.76 1.6A10 10 0 1 0 12 2",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/rosaleigh_uk",
+    path: "M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.76 4.9 4.9 0 0 1-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.76-1.15 4.9 4.9 0 0 1-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 0 1 5.44.54c.64-.25 1.37-.42 2.43-.47C8.94.02 9.28.01 12 .01Zm0 3.6a6.39 6.39 0 1 0 0 12.78 6.39 6.39 0 0 0 0-12.78Zm0 10.55a4.16 4.16 0 1 1 0-8.32 4.16 4.16 0 0 1 0 8.32Zm6.65-10.8a1.49 1.49 0 1 1-2.98 0 1.49 1.49 0 0 1 2.98 0Z",
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/@rosaleigh_uk",
+    path: "M16.6 2h-3.2v13.2a2.9 2.9 0 1 1-2.05-2.77V9.1a6.1 6.1 0 1 0 5.25 6.05V8.3a7.9 7.9 0 0 0 4.4 1.34V6.4a4.5 4.5 0 0 1-4.4-4.4Z",
+  },
 ];
 
 const GOOD_TO_KNOW =
   "Food supplements: not medicines; do not exceed the recommended daily dose; not a substitute for a varied diet; keep out of reach of children; consult a professional if pregnant, breastfeeding or taking medication. Skincare: patch test before first use. AI images for illustration.";
 
+const BOTTOM_LINKS = ["Privacy", "Terms", "Cookies", "Legal notice"];
+
 export function Footer() {
   return (
     <footer style={{ background: "#1C1917", fontFamily: "Figtree, sans-serif" }}>
-
-      {/* ── Subscribe band ── */}
+      {/* Subscribe band */}
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md">
             <h2 className="text-3xl font-semibold leading-snug" style={{ color: "#fff" }}>
-              Get <em className="not-italic font-bold" style={{ color: "#D4AF6E" }}>10% off</em> your first order
+              Get{" "}
+              <em className="not-italic font-bold" style={{ color: "#D4AF6E" }}>
+                10% off
+              </em>{" "}
+              your first order
             </h2>
             <p className="mt-2 text-sm" style={{ color: "#A09A96" }}>
               Routine tips, new launches and members-only offers. Unsubscribe anytime.
             </p>
           </div>
           <div className="flex flex-col gap-2 md:w-[420px]">
-            <form className="flex gap-3" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex gap-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <input
                 type="email"
                 placeholder="Email address"
@@ -138,45 +181,65 @@ export function Footer() {
                 className="flex-1 rounded-full border px-5 py-3 text-sm focus:outline-none"
                 style={{ background: "transparent", borderColor: "#3a3532", color: "#fff" }}
               />
-              <button type="submit"
+              <button
+                type="submit"
                 className="rounded-full px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
-                style={{ background: "#D4AF6E", color: "#1C1917" }}>
+                style={{ background: "#D4AF6E", color: "#1C1917" }}
+              >
                 Subscribe
               </button>
             </form>
             <p className="text-xs px-2" style={{ color: "#A09A96" }}>
               By subscribing you agree to receive marketing emails from Rosaleigh. See our{" "}
-              <a href="https://www.rosaleigh.co.uk/policies/privacy-policy"
-                className="underline hover:text-[#D4AF6E] transition-colors" style={{ color: "#A09A96" }}>
+              <a
+                href="https://www.rosaleigh.co.uk/policies/privacy-policy"
+                className="underline hover:text-[#D4AF6E] transition-colors"
+                style={{ color: "#A09A96" }}
+              >
                 Privacy policy
-              </a>.
+              </a>
+              .
             </p>
           </div>
         </div>
       </div>
 
-      {/* Divider */}
       <div style={{ borderTop: "1px solid #2e2b28" }} />
 
-      {/* ── Main footer grid ── */}
+      {/* Main grid */}
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
-
           {/* Logo + tagline + socials */}
           <div>
             <a href="https://www.rosaleigh.co.uk">
-              <img src={logo} alt="Rosaleigh" className="h-10 w-auto object-contain"
-                style={{ filter: "brightness(0) saturate(100%) invert(82%) sepia(28%) saturate(500%) hue-rotate(5deg) brightness(95%)" }} />
+              <img
+                src={logo}
+                alt="Rosaleigh"
+                className="h-10 w-auto object-contain"
+                style={{
+                  filter:
+                    "brightness(0) saturate(100%) invert(82%) sepia(28%) saturate(500%) hue-rotate(5deg) brightness(95%)",
+                }}
+              />
             </a>
             <p className="mt-4 text-sm leading-relaxed" style={{ color: "#A09A96" }}>
               We stand by every drop. UK-based skincare you can believe in.
             </p>
             <div className="mt-6 flex items-center gap-3">
               {SOCIALS.map((s) => (
-                <a key={s.label} href={s.href} aria-label={s.label}
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
                   className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors hover:border-[#D4AF6E] hover:text-[#D4AF6E]"
-                  style={{ borderColor: "#3a3532", color: "#A09A96" }}>
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                  style={{ borderColor: "#3a3532", color: "#A09A96" }}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  >
                     <path d={s.path} />
                   </svg>
                 </a>
@@ -184,77 +247,123 @@ export function Footer() {
             </div>
           </div>
 
-          {/* SHOP */}
+          {/* Shop */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "#D4AF6E" }}>Shop</h3>
+            <h3
+              className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: "#D4AF6E" }}
+            >
+              Shop
+            </h3>
             <ul className="space-y-3">
               {SHOP_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm transition-colors hover:text-[#D4AF6E]"
-                    style={{ color: "#A09A96" }}>{link.label}</a>
+                  <a
+                    href={link.href}
+                    className="text-sm transition-colors hover:text-[#D4AF6E]"
+                    style={{ color: "#A09A96" }}
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* HELP */}
+          {/* Help */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "#D4AF6E" }}>Help</h3>
+            <h3
+              className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: "#D4AF6E" }}
+            >
+              Help
+            </h3>
             <ul className="space-y-3">
               {HELP_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm transition-colors hover:text-[#D4AF6E]"
-                    style={{ color: "#A09A96" }}>{link.label}</a>
+                  <a
+                    href={link.href}
+                    className="text-sm transition-colors hover:text-[#D4AF6E]"
+                    style={{ color: "#A09A96" }}
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* ABOUT */}
+          {/* About */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "#D4AF6E" }}>About</h3>
+            <h3
+              className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: "#D4AF6E" }}
+            >
+              About
+            </h3>
             <ul className="space-y-3">
               {ABOUT_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm transition-colors hover:text-[#D4AF6E]"
-                    style={{ color: "#A09A96" }}>{link.label}</a>
+                  <a
+                    href={link.href}
+                    className="text-sm transition-colors hover:text-[#D4AF6E]"
+                    style={{ color: "#A09A96" }}
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* GOOD TO KNOW box */}
-        <div className="mt-10 rounded-xl border px-6 py-5"
-          style={{ borderColor: "#2e2b28", background: "#211E1B" }}>
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2"
-            style={{ color: "#D4AF6E" }}>Good to know</p>
-          <p className="text-sm leading-relaxed" style={{ color: "#A09A96" }}>{GOOD_TO_KNOW}</p>
+        {/* Good to know box */}
+        <div
+          className="mt-10 rounded-xl border px-6 py-5"
+          style={{ borderColor: "#2e2b28", background: "#211E1B" }}
+        >
+          <p
+            className="text-xs font-semibold uppercase tracking-widest mb-2"
+            style={{ color: "#D4AF6E" }}
+          >
+            Good to know
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: "#A09A96" }}>
+            {GOOD_TO_KNOW}
+          </p>
         </div>
       </div>
 
-      {/* ── Bottom bar ── */}
+      {/* Bottom bar */}
       <div style={{ borderTop: "1px solid #2e2b28" }}>
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs md:flex-row"
-          style={{ color: "#A09A96" }}>
+        <div
+          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs md:flex-row"
+          style={{ color: "#A09A96" }}
+        >
           <div className="flex flex-wrap items-center gap-2">
             <span>© 2026 Rosaleigh</span>
-            {["Privacy", "Terms", "Cookies", "Legal notice"].map((label, i) => (
+            {BOTTOM_LINKS.map((label) => (
               <span key={label} className="flex items-center gap-2">
                 <span style={{ color: "#3a3532" }}>·</span>
-                <a href={`https://www.rosaleigh.co.uk/policies/${label.toLowerCase().replace(" ", "-")}`}
+                <a
+                  href={`https://www.rosaleigh.co.uk/policies/${label.toLowerCase().replace(" ", "-")}`}
                   className="hover:text-[#D4AF6E] transition-colors"
-                  style={{ color: "#A09A96" }}>{label}</a>
+                  style={{ color: "#A09A96" }}
+                >
+                  {label}
+                </a>
               </span>
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {["Visa", "Mastercard", "Amex", "PayPal", "Diners", "Discover"].map((name) => (
-              <span key={name} className="rounded px-2 py-1 text-[10px] font-medium"
-                style={{ border: "1px solid #3a3532", color: "#A09A96" }}>{name}</span>
+              <span
+                key={name}
+                className="rounded px-2 py-1 text-[10px] font-medium"
+                style={{ border: "1px solid #3a3532", color: "#A09A96" }}
+              >
+                {name}
+              </span>
             ))}
           </div>
         </div>
