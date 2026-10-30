@@ -1,126 +1,230 @@
 import { useEffect, useState } from "react";
-import { Search, User, ShoppingCart, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+import { Search, User, ShoppingCart, ArrowUp } from "lucide-react";
+import logoWordmark from "@/assets/logo-wordmark.png";
+
+/* ---------------------------------------------------------------------------
+   Rosaleigh theme tokens — copied from the Shopify theme settings
+--------------------------------------------------------------------------- */
+const T = {
+  // General
+  bg: "#FFFFFF",
+  heading: "#231F20",
+  text: "#4A4546",
+  link: "#9A5A22",
+  line: "#E6E1DE",
+  cartDot: "#F0C020",
+  cartDotText: "#231F20",
+  // Secondary
+  secondaryBg: "#F7F1EE",
+  // Buttons
+  btn: "#231F20",
+  btnText: "#FFFFFF",
+  btnHover: "#F0C020",
+  btnHoverText: "#231F20",
+  // Footer
+  footerBg: "#231F20",
+  footerHeading: "#FFFFFF",
+  footerText: "#D9D3D0",
+  footerLink: "#F0C020",
+  footerLine: "#3A3435",
+} as const;
+
+const BODY_FONT = "Figtree, sans-serif";
+const HEADING_FONT = "'Instrument Serif', serif";
+const BASE_SIZE = "15.4px"; // body base size 110%
+const PAGE_WIDTH = 1300;
+
+const FONTS_HREF =
+  "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap";
+
+function useThemeFonts() {
+  useEffect(() => {
+    if (document.getElementById("rl-theme-fonts")) return;
+    const link = document.createElement("link");
+    link.id = "rl-theme-fonts";
+    link.rel = "stylesheet";
+    link.href = FONTS_HREF;
+    document.head.appendChild(link);
+  }, []);
+}
+
+/* ---------------------------------------------------------------------------
+   HEADER
+--------------------------------------------------------------------------- */
+const ANNOUNCEMENTS = ["10% off your first order", "Free UK shipping over £70"];
 
 const NAV_LINKS = [
-  { label: "Skin care",   href: "https://www.rosaleigh.co.uk/collections/skin-care" },
-  { label: "Beauty",      href: "https://www.rosaleigh.co.uk/collections/beauty" },
-  { label: "Our story",   href: "https://www.rosaleigh.co.uk/pages/our-story" },
+  { label: "Skin care", href: "https://www.rosaleigh.co.uk/collections/skin-care" },
+  { label: "Beauty", href: "https://www.rosaleigh.co.uk/collections/beauty" },
+  { label: "Our story", href: "https://www.rosaleigh.co.uk/pages/our-story" },
   { label: "Ingredients", href: "https://www.rosaleigh.co.uk/pages/ingredients" },
 ];
 
 export function Header() {
-  const [announcementVisible, setAnnouncementVisible] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
+  useThemeFonts();
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % ANNOUNCEMENTS.length);
+    }, 4000);
+    return () => window.clearInterval(id);
   }, []);
 
   return (
     <>
-      {announcementVisible && (
-        <div
-          className="relative flex items-center justify-center gap-2 px-5 py-2.5 text-sm"
-          style={{ background: "#231F20", color: "#D4AF6E", fontFamily: "Figtree, sans-serif" }}
-        >
-          <span>10% off your first order</span>
-          <button
-            type="button"
-            onClick={() => setAnnouncementVisible(false)}
-            className="absolute right-4 opacity-60 hover:opacity-100"
-            aria-label="Dismiss"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-        </div>
-      )}
-
-      <header
-        className={`sticky top-0 z-30 transition-shadow ${scrolled ? "shadow-sm" : ""}`}
-        style={{ background: "#fff", fontFamily: "Figtree, sans-serif" }}
+      {/* Announcement bar */}
+      <div
+        className="flex items-center justify-center px-5"
+        style={{
+          background: T.footerBg,
+          color: "#FFFFFF",
+          fontFamily: BODY_FONT,
+          fontSize: BASE_SIZE,
+          minHeight: 42,
+        }}
       >
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-4">
-          <a href="https://www.rosaleigh.co.uk" className="shrink-0">
-            <img src={logo} alt="Rosaleigh" className="h-10 w-auto object-contain" />
-          </a>
-          <div
-            className="flex flex-1 items-center gap-2 rounded-full px-4 py-2.5 mx-4"
-            style={{ background: "#F5F0EB" }}
-          >
-            <Search className="h-4 w-4 shrink-0" style={{ color: "#888" }} />
-            <span className="text-sm" style={{ color: "#999" }}>
-              Search skin care and beauty
-            </span>
-          </div>
-          <div className="flex items-center gap-4 shrink-0">
-            <a
-              href="https://www.rosaleigh.co.uk/account"
-              aria-label="Account"
-              className="transition-opacity hover:opacity-70"
-              style={{ color: "#231F20" }}
-            >
-              <User className="h-5 w-5" />
-            </a>
-            <a
-              href="https://www.rosaleigh.co.uk/cart"
-              aria-label="Cart"
-              className="transition-opacity hover:opacity-70"
-              style={{ color: "#231F20" }}
-            >
-              <ShoppingCart className="h-5 w-5" />
-            </a>
-          </div>
-        </div>
+        <span key={index}>{ANNOUNCEMENTS[index]}</span>
+      </div>
 
-        <nav className="mx-auto flex max-w-7xl items-center gap-1 px-6 pb-3">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="px-3 py-1.5 text-sm transition-colors hover:opacity-70"
-              style={{ color: "#231F20" }}
-            >
-              {link.label}
+      {/* Main header */}
+      <header
+        style={{
+          background: T.bg,
+          color: T.heading,
+          fontFamily: BODY_FONT,
+          fontSize: BASE_SIZE,
+          borderBottom: `1px solid ${T.line}`,
+        }}
+      >
+        <div
+          className="mx-auto"
+          style={{ maxWidth: PAGE_WIDTH, padding: "18px 28px 0" }}
+        >
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+            <a href="https://www.rosaleigh.co.uk" className="shrink-0" aria-label="Rosaleigh home">
+              <img
+                src={logoWordmark}
+                alt="Rosaleigh"
+                style={{ height: 48, width: "auto", filter: "brightness(0)" }}
+              />
             </a>
-          ))}
-          <a
-            href="#"
-            className="ml-1 rounded-full px-4 py-1.5 text-sm font-medium transition-opacity hover:opacity-90"
-            style={{ background: "#D4AF6E", color: "#231F20" }}
+
+            {/* Search */}
+            <form
+              action="https://www.rosaleigh.co.uk/search"
+              method="get"
+              className="order-3 flex w-full items-center gap-3 md:order-none md:w-auto md:flex-1"
+              style={{
+                background: T.secondaryBg,
+                borderRadius: 999,
+                height: 56,
+                padding: "0 24px",
+              }}
+            >
+              <Search className="h-5 w-5 shrink-0" style={{ color: T.text }} />
+              <input
+                type="search"
+                name="q"
+                placeholder="Search skin care and beauty"
+                aria-label="Search"
+                className="w-full bg-transparent focus:outline-none"
+                style={{ color: T.heading, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}
+              />
+            </form>
+
+            {/* Icons */}
+            <div className="ml-auto flex items-center gap-6 md:ml-0">
+              <a
+                href="https://www.rosaleigh.co.uk/account"
+                aria-label="Account"
+                className="transition-opacity hover:opacity-70"
+                style={{ color: T.heading }}
+              >
+                <User className="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.rosaleigh.co.uk/cart"
+                aria-label="Cart"
+                className="transition-opacity hover:opacity-70"
+                style={{ color: T.heading }}
+              >
+                <ShoppingCart className="h-6 w-6" />
+              </a>
+            </div>
+          </div>
+
+          {/* Nav */}
+          <nav
+            className="flex items-center gap-8 overflow-x-auto"
+            style={{ padding: "16px 0 14px" }}
+            aria-label="Main"
           >
-            AI Routine
-          </a>
-        </nav>
-        <div style={{ height: "1px", background: "#E8E2DC" }} />
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="whitespace-nowrap transition-opacity hover:opacity-70"
+                style={{ color: T.heading, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="https://www.rosaleigh.co.uk/pages/routine-finder"
+              className="whitespace-nowrap font-medium transition-opacity hover:opacity-90"
+              style={{
+                background: T.btnHover,
+                color: T.btnHoverText,
+                borderRadius: 999,
+                padding: "10px 24px",
+                fontFamily: BODY_FONT,
+                fontSize: BASE_SIZE,
+              }}
+            >
+              AI Routine
+            </a>
+          </nav>
+        </div>
       </header>
     </>
   );
 }
 
+/* ---------------------------------------------------------------------------
+   FOOTER
+--------------------------------------------------------------------------- */
 export const DISCLAIMER =
   "This analysis is generated by AI for general skincare guidance only. It is not a medical or dermatological diagnosis. Individual results vary. If you have a diagnosed skin condition, please consult a dermatologist before starting a new routine.";
 
+const GOOD_TO_KNOW =
+  "Food supplements: not medicines; do not exceed the recommended daily dose; not a substitute for a varied diet; keep out of reach of children; consult a professional if pregnant, breastfeeding or taking medication. Skincare: patch test before first use. AI images for illustration.";
+
 const SHOP_LINKS = [
-  { label: "Skin care",  href: "https://www.rosaleigh.co.uk/collections/skin-care" },
-  { label: "Beauty",     href: "https://www.rosaleigh.co.uk/collections/beauty" },
-  { label: "The Trio",   href: "https://www.rosaleigh.co.uk/collections/bundles" },
-  { label: "Shop all",   href: "https://www.rosaleigh.co.uk/collections/all" },
+  { label: "Skin care", href: "https://www.rosaleigh.co.uk/collections/skin-care" },
+  { label: "Beauty", href: "https://www.rosaleigh.co.uk/collections/beauty" },
+  { label: "The Trio", href: "https://www.rosaleigh.co.uk/collections/bundles" },
+  { label: "Shop all", href: "https://www.rosaleigh.co.uk/collections/all" },
 ];
 
 const HELP_LINKS = [
-  { label: "Contact us",        href: "https://www.rosaleigh.co.uk/pages/contact" },
-  { label: "FAQ",               href: "https://www.rosaleigh.co.uk/pages/faq" },
-  { label: "Shipping",          href: "https://www.rosaleigh.co.uk/policies/shipping-policy" },
+  { label: "Contact us", href: "https://www.rosaleigh.co.uk/pages/contact" },
+  { label: "FAQ", href: "https://www.rosaleigh.co.uk/pages/faq" },
+  { label: "Shipping", href: "https://www.rosaleigh.co.uk/policies/shipping-policy" },
   { label: "Returns & refunds", href: "https://www.rosaleigh.co.uk/policies/refund-policy" },
 ];
 
 const ABOUT_LINKS = [
-  { label: "Our story",      href: "https://www.rosaleigh.co.uk/pages/our-story" },
-  { label: "Ingredients",    href: "https://www.rosaleigh.co.uk/pages/ingredients" },
-  { label: "Routine Finder", href: "#" },
+  { label: "Our story", href: "https://www.rosaleigh.co.uk/pages/our-story" },
+  { label: "Ingredients", href: "https://www.rosaleigh.co.uk/pages/ingredients" },
+  { label: "Routine Finder", href: "https://www.rosaleigh.co.uk/pages/routine-finder" },
+];
+
+const BOTTOM_LINKS = [
+  { label: "Privacy", href: "https://www.rosaleigh.co.uk/policies/privacy-policy" },
+  { label: "Terms", href: "https://www.rosaleigh.co.uk/policies/terms-of-service" },
+  { label: "Cookies", href: "https://www.rosaleigh.co.uk/pages/cookies-policy" },
+  { label: "Legal notice", href: "https://www.rosaleigh.co.uk/policies/legal-notice" },
 ];
 
 const SOCIALS = [
@@ -146,55 +250,148 @@ const SOCIALS = [
   },
 ];
 
-const GOOD_TO_KNOW =
-  "Food supplements: not medicines; do not exceed the recommended daily dose; not a substitute for a varied diet; keep out of reach of children; consult a professional if pregnant, breastfeeding or taking medication. Skincare: patch test before first use. AI images for illustration.";
+function PayBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center justify-center"
+      style={{
+        background: "#FFFFFF",
+        borderRadius: 4,
+        width: 46,
+        height: 30,
+        fontFamily: BODY_FONT,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
 
-const BOTTOM_LINKS = ["Privacy", "Terms", "Cookies", "Legal notice"];
+function PaymentBadges() {
+  return (
+    <div className="flex flex-wrap items-center gap-2" aria-label="Accepted payment methods">
+      <PayBadge>
+        <span style={{ color: "#1A1F71", fontWeight: 800, fontStyle: "italic", fontSize: 12 }}>
+          VISA
+        </span>
+      </PayBadge>
+      <PayBadge>
+        <svg width="28" height="18" viewBox="0 0 28 18" aria-label="Mastercard">
+          <circle cx="10" cy="9" r="8" fill="#EB001B" />
+          <circle cx="18" cy="9" r="8" fill="#F79E1B" fillOpacity="0.9" />
+        </svg>
+      </PayBadge>
+      <PayBadge>
+        <span style={{ color: "#FFFFFF", background: "#2E77BC", fontWeight: 800, fontSize: 9, padding: "4px 5px", borderRadius: 2 }}>
+          AMEX
+        </span>
+      </PayBadge>
+      <PayBadge>
+        <span style={{ color: "#003087", fontWeight: 800, fontStyle: "italic", fontSize: 11 }}>
+          PayPal
+        </span>
+      </PayBadge>
+      <PayBadge>
+        <span style={{ color: "#0079BE", fontWeight: 700, fontSize: 9 }}>Diners</span>
+      </PayBadge>
+      <PayBadge>
+        <span style={{ color: "#E55C20", fontWeight: 800, fontSize: 7 }}>DISCOVER</span>
+      </PayBadge>
+    </div>
+  );
+}
 
 export function Footer() {
+  useThemeFonts();
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const colHeading = {
+    color: T.footerLink,
+    fontFamily: BODY_FONT,
+    fontSize: 13,
+    fontWeight: 700,
+    letterSpacing: "0.16em",
+    textTransform: "uppercase" as const,
+  };
+
+  const linkClass = "transition-colors hover:text-[#F0C020]";
+  const linkStyle = { color: T.footerText, fontFamily: BODY_FONT, fontSize: BASE_SIZE };
+
   return (
-    <footer style={{ background: "#1C1917", fontFamily: "Figtree, sans-serif" }}>
-      {/* Subscribe band */}
-      <div className="mx-auto max-w-7xl px-6 py-14">
-        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-md">
-            <h2 className="text-3xl font-semibold leading-snug" style={{ color: "#fff" }}>
+    <footer style={{ background: T.footerBg, color: T.footerText, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}>
+      <div className="mx-auto" style={{ maxWidth: PAGE_WIDTH, padding: "0 28px" }}>
+        {/* Subscribe band */}
+        <div
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16"
+          style={{ padding: "72px 0 56px", borderBottom: `1px solid ${T.footerLine}` }}
+        >
+          <div>
+            <h2
+              style={{
+                color: T.footerHeading,
+                fontFamily: HEADING_FONT,
+                fontWeight: 400,
+                fontSize: "clamp(2.4rem, 5vw, 3.6rem)",
+                lineHeight: 1.05,
+                letterSpacing: 0,
+                margin: 0,
+              }}
+            >
               Get{" "}
-              <em className="not-italic font-bold" style={{ color: "#D4AF6E" }}>
-                10% off
-              </em>{" "}
-              your first order
+              <em style={{ fontStyle: "italic", color: T.footerLink }}>10% off</em> your first order
             </h2>
-            <p className="mt-2 text-sm" style={{ color: "#A09A96" }}>
+            <p style={{ marginTop: 16, maxWidth: 520, color: T.footerText, lineHeight: 1.6 }}>
               Routine tips, new launches and members-only offers. Unsubscribe anytime.
             </p>
           </div>
-          <div className="flex flex-col gap-2 md:w-[420px]">
-            <form
-              className="flex gap-3"
-              onSubmit={(e) => e.preventDefault()}
-            >
+
+          <div>
+            <form className="flex flex-col gap-3 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
                 placeholder="Email address"
                 aria-label="Email address"
-                className="flex-1 rounded-full border px-5 py-3 text-sm focus:outline-none"
-                style={{ background: "transparent", borderColor: "#3a3532", color: "#fff" }}
+                className="w-full flex-1 bg-transparent focus:outline-none"
+                style={{
+                  border: `1px solid ${T.footerText}`,
+                  borderRadius: 999,
+                  height: 64,
+                  padding: "0 28px",
+                  color: T.footerHeading,
+                  fontFamily: BODY_FONT,
+                  fontSize: BASE_SIZE,
+                }}
               />
               <button
                 type="submit"
-                className="rounded-full px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
-                style={{ background: "#D4AF6E", color: "#1C1917" }}
+                className="transition-opacity hover:opacity-90"
+                style={{
+                  background: T.btnHover,
+                  color: T.btnHoverText,
+                  borderRadius: 999,
+                  height: 64,
+                  padding: "0 36px",
+                  fontFamily: BODY_FONT,
+                  fontSize: BASE_SIZE,
+                  fontWeight: 600,
+                }}
               >
                 Subscribe
               </button>
             </form>
-            <p className="text-xs px-2" style={{ color: "#A09A96" }}>
+            <p style={{ marginTop: 16, fontSize: 13.5, color: T.footerText, lineHeight: 1.6 }}>
               By subscribing you agree to receive marketing emails from Rosaleigh. See our{" "}
               <a
                 href="https://www.rosaleigh.co.uk/policies/privacy-policy"
-                className="underline hover:text-[#D4AF6E] transition-colors"
-                style={{ color: "#A09A96" }}
+                className="underline hover:text-[#F0C020]"
+                style={{ color: T.footerHeading }}
               >
                 Privacy policy
               </a>
@@ -202,44 +399,35 @@ export function Footer() {
             </p>
           </div>
         </div>
-      </div>
 
-      <div style={{ borderTop: "1px solid #2e2b28" }} />
-
-      {/* Main grid */}
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
-          {/* Logo + tagline + socials */}
-          <div>
-            <a href="https://www.rosaleigh.co.uk">
-              <img
-                src={logo}
-                alt="Rosaleigh"
-                className="h-10 w-auto object-contain"
-                style={{
-                  filter:
-                    "brightness(0) saturate(100%) invert(82%) sepia(28%) saturate(500%) hue-rotate(5deg) brightness(95%)",
-                }}
-              />
+        {/* Main grid */}
+        <div
+          className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[1.6fr_1fr_1fr_1fr]"
+          style={{ padding: "56px 0 0" }}
+        >
+          <div className="col-span-2 md:col-span-1">
+            <a href="https://www.rosaleigh.co.uk" aria-label="Rosaleigh home">
+              <img src={logoWordmark} alt="Rosaleigh" style={{ height: 56, width: "auto" }} />
             </a>
-            <p className="mt-4 text-sm leading-relaxed" style={{ color: "#A09A96" }}>
+            <p style={{ marginTop: 16, maxWidth: 420, color: T.footerText, lineHeight: 1.6 }}>
               We stand by every drop. UK-based skincare you can believe in.
             </p>
-            <div className="mt-6 flex items-center gap-3">
+            <div className="flex items-center gap-3" style={{ marginTop: 24 }}>
               {SOCIALS.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border transition-colors hover:border-[#D4AF6E] hover:text-[#D4AF6E]"
-                  style={{ borderColor: "#3a3532", color: "#A09A96" }}
+                  className="flex items-center justify-center transition-colors hover:border-[#F0C020] hover:text-[#F0C020]"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: 999,
+                    border: `1px solid ${T.footerLine}`,
+                    color: T.footerHeading,
+                  }}
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                    aria-hidden="true"
-                  >
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
                     <path d={s.path} />
                   </svg>
                 </a>
@@ -247,127 +435,102 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Shop */}
           <div>
-            <h3
-              className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "#D4AF6E" }}
-            >
-              Shop
-            </h3>
-            <ul className="space-y-3">
-              {SHOP_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm transition-colors hover:text-[#D4AF6E]"
-                    style={{ color: "#A09A96" }}
-                  >
-                    {link.label}
+            <h3 style={colHeading}>Shop</h3>
+            <ul style={{ marginTop: 24, display: "grid", gap: 20 }}>
+              {SHOP_LINKS.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className={linkClass} style={linkStyle}>
+                    {l.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Help */}
           <div>
-            <h3
-              className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "#D4AF6E" }}
-            >
-              Help
-            </h3>
-            <ul className="space-y-3">
-              {HELP_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm transition-colors hover:text-[#D4AF6E]"
-                    style={{ color: "#A09A96" }}
-                  >
-                    {link.label}
+            <h3 style={colHeading}>Help</h3>
+            <ul style={{ marginTop: 24, display: "grid", gap: 20 }}>
+              {HELP_LINKS.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className={linkClass} style={linkStyle}>
+                    {l.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* About */}
           <div>
-            <h3
-              className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: "#D4AF6E" }}
-            >
-              About
-            </h3>
-            <ul className="space-y-3">
-              {ABOUT_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm transition-colors hover:text-[#D4AF6E]"
-                    style={{ color: "#A09A96" }}
-                  >
-                    {link.label}
+            <h3 style={colHeading}>About</h3>
+            <ul style={{ marginTop: 24, display: "grid", gap: 20 }}>
+              {ABOUT_LINKS.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className={linkClass} style={linkStyle}>
+                    {l.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
 
-        {/* Good to know box */}
-        <div
-          className="mt-10 rounded-xl border px-6 py-5"
-          style={{ borderColor: "#2e2b28", background: "#211E1B" }}
-        >
-          <p
-            className="text-xs font-semibold uppercase tracking-widest mb-2"
-            style={{ color: "#D4AF6E" }}
+          {/* Good to know */}
+          <div
+            className="col-span-2 md:col-span-3"
+            style={{
+              border: `1px solid ${T.footerLine}`,
+              borderRadius: 28,
+              padding: "28px 32px",
+            }}
           >
-            Good to know
-          </p>
-          <p className="text-sm leading-relaxed" style={{ color: "#A09A96" }}>
-            {GOOD_TO_KNOW}
-          </p>
+            <p style={{ ...colHeading, margin: 0 }}>Good to know</p>
+            <p style={{ marginTop: 12, color: T.footerText, lineHeight: 1.7, fontSize: 14.5 }}>
+              {GOOD_TO_KNOW}
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div style={{ borderTop: "1px solid #2e2b28" }}>
+        {/* Bottom bar */}
         <div
-          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs md:flex-row"
-          style={{ color: "#A09A96" }}
+          className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-center"
+          style={{ marginTop: 40, padding: "28px 0", borderTop: `1px solid ${T.footerLine}` }}
         >
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2" style={{ fontSize: 14.5 }}>
             <span>© 2026 Rosaleigh</span>
-            {BOTTOM_LINKS.map((label) => (
-              <span key={label} className="flex items-center gap-2">
-                <span style={{ color: "#3a3532" }}>·</span>
-                <a
-                  href={`https://www.rosaleigh.co.uk/policies/${label.toLowerCase().replace(" ", "-")}`}
-                  className="hover:text-[#D4AF6E] transition-colors"
-                  style={{ color: "#A09A96" }}
-                >
-                  {label}
+            {BOTTOM_LINKS.map((l) => (
+              <span key={l.label} className="flex items-center gap-3">
+                <span aria-hidden="true">·</span>
+                <a href={l.href} className={linkClass} style={{ color: T.footerText }}>
+                  {l.label}
                 </a>
               </span>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {["Visa", "Mastercard", "Amex", "PayPal", "Diners", "Discover"].map((name) => (
-              <span
-                key={name}
-                className="rounded px-2 py-1 text-[10px] font-medium"
-                style={{ border: "1px solid #3a3532", color: "#A09A96" }}
-              >
-                {name}
-              </span>
-            ))}
-          </div>
+          <PaymentBadges />
         </div>
       </div>
+
+      {/* Back to top */}
+      {showTop && (
+        <button
+          type="button"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed z-40 flex items-center justify-center transition-opacity hover:opacity-90"
+          style={{
+            right: 28,
+            bottom: 28,
+            width: 60,
+            height: 60,
+            borderRadius: 999,
+            background: T.btnHover,
+            color: T.btnHoverText,
+            boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
+          }}
+        >
+          <ArrowUp className="h-6 w-6" />
+        </button>
+      )}
     </footer>
   );
 }
