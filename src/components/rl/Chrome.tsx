@@ -1,27 +1,19 @@
-import { useEffect, useState } from "react";
-import { Search, User, ShoppingCart, ArrowUp } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { Search, User, ShoppingCart, Truck, Award, ArrowUp } from "lucide-react";
 import logoWordmark from "@/assets/logo-wordmark.png";
 
 /* ---------------------------------------------------------------------------
    Rosaleigh theme tokens — copied from the Shopify theme settings
 --------------------------------------------------------------------------- */
 const T = {
-  // General
   bg: "#FFFFFF",
   heading: "#231F20",
   text: "#4A4546",
   link: "#9A5A22",
   line: "#E6E1DE",
-  cartDot: "#F0C020",
-  cartDotText: "#231F20",
-  // Secondary
   secondaryBg: "#F7F1EE",
-  // Buttons
-  btn: "#231F20",
-  btnText: "#FFFFFF",
   btnHover: "#F0C020",
   btnHoverText: "#231F20",
-  // Footer
   footerBg: "#231F20",
   footerHeading: "#FFFFFF",
   footerText: "#D9D3D0",
@@ -49,15 +41,49 @@ function useThemeFonts() {
 }
 
 /* ---------------------------------------------------------------------------
+   LINKS
+   Confirmed by you: home, shop, our story, routine finder, contact.
+   The rest (marked "unconfirmed") are guesses — check them on the live store.
+--------------------------------------------------------------------------- */
+const SITE = "https://rosaleigh.co.uk";
+
+const URLS = {
+  home: `${SITE}/`,
+  shop: `${SITE}/collections/all`,
+  story: `${SITE}/pages/ourstory`,
+  routineFinder: "https://routineby-rosaleigh.vercel.app/",
+  contact: `${SITE}/pages/contact`,
+  // unconfirmed
+  account: `${SITE}/account`,
+  cart: `${SITE}/cart`,
+  search: `${SITE}/search`,
+  skinCare: `${SITE}/collections/skin-care`,
+  beauty: `${SITE}/collections/beauty`,
+  trio: `${SITE}/collections/bundles`,
+  ingredients: `${SITE}/pages/ingredients`,
+  faq: `${SITE}/pages/faq`,
+  shipping: `${SITE}/policies/shipping-policy`,
+  refunds: `${SITE}/policies/refund-policy`,
+  privacy: `${SITE}/policies/privacy-policy`,
+  terms: `${SITE}/policies/terms-of-service`,
+  cookies: `${SITE}/pages/cookies-policy`,
+  legal: `${SITE}/policies/legal-notice`,
+} as const;
+
+/* ---------------------------------------------------------------------------
    HEADER
 --------------------------------------------------------------------------- */
-const ANNOUNCEMENTS = ["10% off your first order", "Free UK shipping over £70"];
+const ANNOUNCEMENTS: { icon: ReactNode; text: string }[] = [
+  { icon: <Truck className="h-5 w-5" />, text: "Free UK shipping over £70" },
+  { icon: <Award className="h-5 w-5" />, text: "10% off your first order" },
+];
 
 const NAV_LINKS = [
-  { label: "Skin care", href: "https://www.rosaleigh.co.uk/collections/skin-care" },
-  { label: "Beauty", href: "https://www.rosaleigh.co.uk/collections/beauty" },
-  { label: "Our story", href: "https://www.rosaleigh.co.uk/pages/our-story" },
-  { label: "Ingredients", href: "https://www.rosaleigh.co.uk/pages/ingredients" },
+  { label: "Home", href: URLS.home, pill: false },
+  { label: "Shop", href: URLS.shop, pill: false },
+  { label: "Our Story", href: URLS.story, pill: false },
+  { label: "Routine Finder", href: URLS.routineFinder, pill: true },
+  { label: "Contact Us", href: URLS.contact, pill: false },
 ];
 
 export function Header() {
@@ -71,20 +97,24 @@ export function Header() {
     return () => window.clearInterval(id);
   }, []);
 
+  const current = ANNOUNCEMENTS[index] ?? ANNOUNCEMENTS[0];
+
   return (
     <>
       {/* Announcement bar */}
       <div
-        className="flex items-center justify-center px-5"
+        className="flex items-center justify-center gap-3 px-5"
+        aria-live="polite"
         style={{
           background: T.footerBg,
           color: "#FFFFFF",
           fontFamily: BODY_FONT,
           fontSize: BASE_SIZE,
-          minHeight: 42,
+          minHeight: 48,
         }}
       >
-        <span key={index}>{ANNOUNCEMENTS[index]}</span>
+        {current?.icon}
+        <span key={index}>{current?.text}</span>
       </div>
 
       {/* Main header */}
@@ -97,12 +127,9 @@ export function Header() {
           borderBottom: `1px solid ${T.line}`,
         }}
       >
-        <div
-          className="mx-auto"
-          style={{ maxWidth: PAGE_WIDTH, padding: "18px 28px 0" }}
-        >
+        <div className="mx-auto" style={{ maxWidth: PAGE_WIDTH, padding: "18px 28px 0" }}>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-            <a href="https://www.rosaleigh.co.uk" className="shrink-0" aria-label="Rosaleigh home">
+            <a href={URLS.home} className="shrink-0" aria-label="Rosaleigh home">
               <img
                 src={logoWordmark}
                 alt="Rosaleigh"
@@ -112,7 +139,7 @@ export function Header() {
 
             {/* Search */}
             <form
-              action="https://www.rosaleigh.co.uk/search"
+              action={URLS.search}
               method="get"
               className="order-3 flex w-full items-center gap-3 md:order-none md:w-auto md:flex-1"
               style={{
@@ -136,7 +163,7 @@ export function Header() {
             {/* Icons */}
             <div className="ml-auto flex items-center gap-6 md:ml-0">
               <a
-                href="https://www.rosaleigh.co.uk/account"
+                href={URLS.account}
                 aria-label="Account"
                 className="transition-opacity hover:opacity-70"
                 style={{ color: T.heading }}
@@ -144,7 +171,7 @@ export function Header() {
                 <User className="h-6 w-6" />
               </a>
               <a
-                href="https://www.rosaleigh.co.uk/cart"
+                href={URLS.cart}
                 aria-label="Cart"
                 className="transition-opacity hover:opacity-70"
                 style={{ color: T.heading }}
@@ -160,30 +187,35 @@ export function Header() {
             style={{ padding: "16px 0 14px" }}
             aria-label="Main"
           >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="whitespace-nowrap transition-opacity hover:opacity-70"
-                style={{ color: T.heading, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="https://www.rosaleigh.co.uk/pages/routine-finder"
-              className="whitespace-nowrap font-medium transition-opacity hover:opacity-90"
-              style={{
-                background: T.btnHover,
-                color: T.btnHoverText,
-                borderRadius: 999,
-                padding: "10px 24px",
-                fontFamily: BODY_FONT,
-                fontSize: BASE_SIZE,
-              }}
-            >
-              AI Routine
-            </a>
+            {NAV_LINKS.map((link) =>
+              link.pill ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  aria-current="page"
+                  className="whitespace-nowrap font-medium transition-opacity hover:opacity-90"
+                  style={{
+                    background: T.btnHover,
+                    color: T.btnHoverText,
+                    borderRadius: 999,
+                    padding: "12px 26px",
+                    fontFamily: BODY_FONT,
+                    fontSize: BASE_SIZE,
+                  }}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="whitespace-nowrap font-medium transition-colors hover:text-[#9A5A22]"
+                  style={{ color: T.heading, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
           </nav>
         </div>
       </header>
@@ -201,30 +233,30 @@ const GOOD_TO_KNOW =
   "Food supplements: not medicines; do not exceed the recommended daily dose; not a substitute for a varied diet; keep out of reach of children; consult a professional if pregnant, breastfeeding or taking medication. Skincare: patch test before first use. AI images for illustration.";
 
 const SHOP_LINKS = [
-  { label: "Skin care", href: "https://www.rosaleigh.co.uk/collections/skin-care" },
-  { label: "Beauty", href: "https://www.rosaleigh.co.uk/collections/beauty" },
-  { label: "The Trio", href: "https://www.rosaleigh.co.uk/collections/bundles" },
-  { label: "Shop all", href: "https://www.rosaleigh.co.uk/collections/all" },
+  { label: "Skin care", href: URLS.skinCare },
+  { label: "Beauty", href: URLS.beauty },
+  { label: "The Trio", href: URLS.trio },
+  { label: "Shop all", href: URLS.shop },
 ];
 
 const HELP_LINKS = [
-  { label: "Contact us", href: "https://www.rosaleigh.co.uk/pages/contact" },
-  { label: "FAQ", href: "https://www.rosaleigh.co.uk/pages/faq" },
-  { label: "Shipping", href: "https://www.rosaleigh.co.uk/policies/shipping-policy" },
-  { label: "Returns & refunds", href: "https://www.rosaleigh.co.uk/policies/refund-policy" },
+  { label: "Contact us", href: URLS.contact },
+  { label: "FAQ", href: URLS.faq },
+  { label: "Shipping", href: URLS.shipping },
+  { label: "Returns & refunds", href: URLS.refunds },
 ];
 
 const ABOUT_LINKS = [
-  { label: "Our story", href: "https://www.rosaleigh.co.uk/pages/our-story" },
-  { label: "Ingredients", href: "https://www.rosaleigh.co.uk/pages/ingredients" },
-  { label: "Routine Finder", href: "https://www.rosaleigh.co.uk/pages/routine-finder" },
+  { label: "Our story", href: URLS.story },
+  { label: "Ingredients", href: URLS.ingredients },
+  { label: "Routine Finder", href: URLS.routineFinder },
 ];
 
 const BOTTOM_LINKS = [
-  { label: "Privacy", href: "https://www.rosaleigh.co.uk/policies/privacy-policy" },
-  { label: "Terms", href: "https://www.rosaleigh.co.uk/policies/terms-of-service" },
-  { label: "Cookies", href: "https://www.rosaleigh.co.uk/pages/cookies-policy" },
-  { label: "Legal notice", href: "https://www.rosaleigh.co.uk/policies/legal-notice" },
+  { label: "Privacy", href: URLS.privacy },
+  { label: "Terms", href: URLS.terms },
+  { label: "Cookies", href: URLS.cookies },
+  { label: "Legal notice", href: URLS.legal },
 ];
 
 const SOCIALS = [
@@ -250,7 +282,7 @@ const SOCIALS = [
   },
 ];
 
-function PayBadge({ children }: { children: React.ReactNode }) {
+function PayBadge({ children }: { children: ReactNode }) {
   return (
     <span
       className="inline-flex items-center justify-center"
@@ -282,7 +314,16 @@ function PaymentBadges() {
         </svg>
       </PayBadge>
       <PayBadge>
-        <span style={{ color: "#FFFFFF", background: "#2E77BC", fontWeight: 800, fontSize: 9, padding: "4px 5px", borderRadius: 2 }}>
+        <span
+          style={{
+            color: "#FFFFFF",
+            background: "#2E77BC",
+            fontWeight: 800,
+            fontSize: 9,
+            padding: "4px 5px",
+            borderRadius: 2,
+          }}
+        >
           AMEX
         </span>
       </PayBadge>
@@ -325,7 +366,14 @@ export function Footer() {
   const linkStyle = { color: T.footerText, fontFamily: BODY_FONT, fontSize: BASE_SIZE };
 
   return (
-    <footer style={{ background: T.footerBg, color: T.footerText, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}>
+    <footer
+      style={{
+        background: T.footerBg,
+        color: T.footerText,
+        fontFamily: BODY_FONT,
+        fontSize: BASE_SIZE,
+      }}
+    >
       <div className="mx-auto" style={{ maxWidth: PAGE_WIDTH, padding: "0 28px" }}>
         {/* Subscribe band */}
         <div
@@ -344,8 +392,8 @@ export function Footer() {
                 margin: 0,
               }}
             >
-              Get{" "}
-              <em style={{ fontStyle: "italic", color: T.footerLink }}>10% off</em> your first order
+              Get <em style={{ fontStyle: "italic", color: T.footerLink }}>10% off</em> your first
+              order
             </h2>
             <p style={{ marginTop: 16, maxWidth: 520, color: T.footerText, lineHeight: 1.6 }}>
               Routine tips, new launches and members-only offers. Unsubscribe anytime.
@@ -389,7 +437,7 @@ export function Footer() {
             <p style={{ marginTop: 16, fontSize: 13.5, color: T.footerText, lineHeight: 1.6 }}>
               By subscribing you agree to receive marketing emails from Rosaleigh. See our{" "}
               <a
-                href="https://www.rosaleigh.co.uk/policies/privacy-policy"
+                href={URLS.privacy}
                 className="underline hover:text-[#F0C020]"
                 style={{ color: T.footerHeading }}
               >
@@ -406,7 +454,7 @@ export function Footer() {
           style={{ padding: "56px 0 0" }}
         >
           <div className="col-span-2 md:col-span-1">
-            <a href="https://www.rosaleigh.co.uk" aria-label="Rosaleigh home">
+            <a href={URLS.home} aria-label="Rosaleigh home">
               <img src={logoWordmark} alt="Rosaleigh" style={{ height: 56, width: "auto" }} />
             </a>
             <p style={{ marginTop: 16, maxWidth: 420, color: T.footerText, lineHeight: 1.6 }}>
@@ -427,7 +475,12 @@ export function Footer() {
                     color: T.footerHeading,
                   }}
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                  >
                     <path d={s.path} />
                   </svg>
                 </a>
