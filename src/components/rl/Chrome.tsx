@@ -86,6 +86,33 @@ const NAV_LINKS = [
   { label: "Contact Us", href: URLS.contact, pill: false },
 ];
 
+/* Nav text link hover: label rolls up, brown copy rolls in, underline draws in */
+function NavTextLink({ label, href }: { label: string; href: string }) {
+  return (
+    <a
+      href={href}
+      className="group relative inline-block overflow-hidden whitespace-nowrap font-medium"
+      style={{ color: T.heading, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}
+    >
+      <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-full">
+        {label}
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute left-0 top-0 block translate-y-full transition-transform duration-300 ease-out group-hover:translate-y-0"
+        style={{ color: T.link }}
+      >
+        {label}
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
+        style={{ background: T.link }}
+      />
+    </a>
+  );
+}
+
 export function Header() {
   useThemeFonts();
   const [index, setIndex] = useState(0);
@@ -206,14 +233,7 @@ export function Header() {
                   {link.label}
                 </a>
               ) : (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="whitespace-nowrap font-medium transition-colors hover:text-[#9A5A22]"
-                  style={{ color: T.heading, fontFamily: BODY_FONT, fontSize: BASE_SIZE }}
-                >
-                  {link.label}
-                </a>
+                <NavTextLink key={link.label} label={link.label} href={link.href} />
               ),
             )}
           </nav>
